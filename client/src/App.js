@@ -3,7 +3,7 @@ import { Navbar } from "./components";
 function App() {
     return (
         <div className="App">
-            <Navbar />
+            <h1 className="text-red-500">Yoooo</h1>
         </div>
     );
 }
