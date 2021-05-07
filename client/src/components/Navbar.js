@@ -1,11 +1,10 @@
 import React from "react";
-import { Nav } from "./Navbar.elements";
 
 const Navbar = () => {
     return (
-        <>
-            <Nav></Nav>
-        </>
+        <nav>
+            <div className="pl-8">Egg</div>
+        </nav>
     );
 };
 
