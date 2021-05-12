@@ -1,9 +1,9 @@
-import Navbar from "./components/Navbar";
+import IndexPage from "./components/IndexPage";
 
 function App() {
     return (
         <>
-            <Navbar />
+            <IndexPage />
         </>
     );
 }
