@@ -1,21 +1,30 @@
 import React, { useState } from "react";
+
+/* Heroicons */
 import {
     HomeIcon,
     CogIcon,
     CollectionIcon,
     LogoutIcon,
 } from "@heroicons/react/outline";
+
+/* Locally stored icons */
 import CrossIcon from "../images/icons/Cross";
 import Logo from "../images/icons/Logo";
 import Menu from "../images/icons/Menu";
+
+/* Images */
 import UserIcon from "../images/UserIcon.png";
+
+/* Miscellaneous */
+import List from "../components/List";
 
 export default function IndexPage() {
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
     return (
         <>
-            <div className="absolute bg-gray-200 w-full h-full">
+            <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
                 <div
@@ -174,8 +183,15 @@ export default function IndexPage() {
                 </nav>
                 {/* Navigation ends */}
                 {/* Page title starts */}
-                <div className="my-6 lg:my-12 container px-6 mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between pb-4 border-b border-gray-300"></div>
+                <div className="my-6 lg:my-12 container px-6 mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between pb-4 border-b border-gray-300">
+                    <h1>*BIG SLIDER HERE*</h1>
+                </div>
                 {/* Page title ends */}
+                <div className="container mx-auto px-6">
+                    <div className="w-full">
+                        <List />
+                    </div>
+                </div>
             </div>
         </>
     );
