@@ -9,6 +9,9 @@ import InteriaLogo from "../images/sources/interia.png";
 import WprostLogo from "../images/sources/wprost.jpeg";
 import Tvn24Logo from "../images/sources/tvn24.png";
 
+/* Miscellaneous */
+import Tooltip from "@material-ui/core/Tooltip";
+
 const sourcesLogosCache = {
     DoRzeczy: {
         logo: DoRzeczyLogo,
@@ -40,7 +43,7 @@ const sourcesLogosCache = {
     },
 };
 
-function Article({ source, title, link }) {
+function Article({ source, title, link, position }) {
     return (
         <div className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded">
             <div className="flex items-center border-b border-gray-200 pb-6">
@@ -51,14 +54,28 @@ function Article({ source, title, link }) {
                 />
                 <div className="flex items-start justify-between w-full">
                     <div className="pl-3 w-full">
-                        <p className="text-4xl font-serif leading-5 text-gray-800">
+                        <p className="text-4xl text-center font-serif leading-5 text-gray-800">
                             {sourcesLogosCache[source]["name"]}
                         </p>
                     </div>
                 </div>
             </div>
             <div className="px-2">
-                <p className="text-sm leading-5 py-4 text-gray-600">{title}</p>
+                <Tooltip
+                    title={title}
+                    placement={
+                        position == "center"
+                            ? "bottom"
+                            : position == "left"
+                            ? "left"
+                            : "right"
+                    }
+                    arrow
+                >
+                    <p className="truncate text-sm leading-5 py-4 text-gray-600">
+                        {title}
+                    </p>
+                </Tooltip>
                 <a
                     href={link}
                     target="_blank"
