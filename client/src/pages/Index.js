@@ -19,6 +19,7 @@ import Menu from "../images/icons/Menu";
 import UserIcon from "../images/UserIcon.png";
 
 /* Miscellaneous */
+import Slider from "../components/Slider";
 import List from "../components/List";
 
 export default function IndexPage() {
@@ -199,7 +200,7 @@ export default function IndexPage() {
                 {/* Navigation ends */}
                 {/* Page title starts */}
                 <div className="my-6 lg:my-12 container px-6 mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between pb-4 border-b border-gray-300">
-                    <h1>*BIG SLIDER HERE*</h1>
+                    <Slider />
                 </div>
                 {/* Page title ends */}
                 <div className="container mx-auto px-6">
