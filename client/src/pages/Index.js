@@ -44,12 +44,14 @@ export default function IndexPage() {
                         <div className="flex flex-col justify-between h-full">
                             <div className="px-6 pt-4">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center">
-                                        <Logo />
-                                        <p className="text-bold md:text2xl text-base pl-3 text-gray-800">
-                                            Kurier Informacyjny
-                                        </p>
-                                    </div>
+                                    <Link to="/">
+                                        <div className="flex items-center">
+                                            <Logo />
+                                            <p className="text-bold md:text2xl text-base pl-3 text-gray-800">
+                                                Kurier Informacyjny
+                                            </p>
+                                        </div>
+                                    </Link>
                                     <div
                                         id="cross"
                                         className=" text-gray-800"
@@ -122,12 +124,14 @@ export default function IndexPage() {
                 <nav className="w-full mx-auto bg-white shadow">
                     <div className="container px-6 justify-between h-16 flex items-center lg:items-stretch mx-auto">
                         <div className="h-full flex items-center">
-                            <div className="mr-10 flex items-center">
-                                <Logo />
-                                <h3 className="text-base text-gray-800 font-bold tracking-normal leading-tight ml-3 hidden lg:block">
-                                    Kurier Informacyjny
-                                </h3>
-                            </div>
+                            <Link to="/">
+                                <div className="mr-10 flex items-center">
+                                    <Logo />
+                                    <h3 className="text-base text-gray-800 font-bold tracking-normal leading-tight ml-3 hidden lg:block">
+                                        Kurier Informacyjny
+                                    </h3>
+                                </div>
+                            </Link>
                             <ul className="pr-12 xl:flex items-center h-full hidden">
                                 <Link
                                     to="/"
