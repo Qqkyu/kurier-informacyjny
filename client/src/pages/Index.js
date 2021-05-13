@@ -1,4 +1,6 @@
+/* React */
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 /* Heroicons */
 import {
@@ -57,7 +59,7 @@ export default function IndexPage() {
                                     </div>
                                 </div>
                                 <ul className="f-m-m">
-                                    <a>
+                                    <Link to="/">
                                         <li className="text-white pt-8">
                                             <div className="flex items-center">
                                                 <div className="md:w-6 md:h-6 w-5 h-5">
@@ -68,8 +70,8 @@ export default function IndexPage() {
                                                 </p>
                                             </div>
                                         </li>
-                                    </a>
-                                    <a>
+                                    </Link>
+                                    <Link to="/assignments/">
                                         <li className="text-gray-700 pt-8">
                                             <div className="flex items-center">
                                                 <div className="flex items-center">
@@ -82,8 +84,8 @@ export default function IndexPage() {
                                                 </div>
                                             </div>
                                         </li>
-                                    </a>
-                                    <a>
+                                    </Link>
+                                    <Link to="/sources/">
                                         <li className="text-gray-800 pt-8">
                                             <div className="flex items-center">
                                                 <div className="md:w-6 md:h-6 w-5 h-5">
@@ -94,7 +96,7 @@ export default function IndexPage() {
                                                 </p>
                                             </div>
                                         </li>
-                                    </a>
+                                    </Link>
                                 </ul>
                             </div>
                             <div className="w-full">
@@ -127,15 +129,24 @@ export default function IndexPage() {
                                 </h3>
                             </div>
                             <ul className="pr-12 xl:flex items-center h-full hidden">
-                                <li className="cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal border-b-2 border-indigo-700">
-                                    Strona Główna
-                                </li>
-                                <li className="cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal">
-                                    Przypisania
-                                </li>
-                                <li className="cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal">
-                                    Źródła
-                                </li>
+                                <Link
+                                    to="/"
+                                    className="cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal border-b-2 border-indigo-700"
+                                >
+                                    <li>Strona Główna</li>
+                                </Link>
+                                <Link
+                                    to="/assignments/"
+                                    className="cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal"
+                                >
+                                    <li>Przypisania</li>
+                                </Link>
+                                <Link
+                                    to="/sources/"
+                                    className="cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal"
+                                >
+                                    <li>Źródła</li>
+                                </Link>
                             </ul>
                         </div>
                         <div className="h-full xl:flex items-center justify-end hidden">

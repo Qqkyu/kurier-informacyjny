@@ -64,9 +64,9 @@ function Article({ source, title, link, position }) {
                 <Tooltip
                     title={title}
                     placement={
-                        position == "center"
+                        position === "center"
                             ? "bottom"
-                            : position == "left"
+                            : position === "left"
                             ? "left"
                             : "right"
                     }
