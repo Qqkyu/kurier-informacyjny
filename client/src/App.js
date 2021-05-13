@@ -1,4 +1,4 @@
-import IndexPage from "./components/IndexPage";
+import IndexPage from "./pages/Index";
 
 function App() {
     return (
