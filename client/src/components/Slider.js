@@ -5,28 +5,28 @@ import Slider from "@material-ui/core/Slider";
 const marks = [
     {
         value: 0,
-        label: "left",
+        label: "lewica",
     },
     {
         value: 50,
-        label: "center",
+        label: "centrum",
     },
     {
         value: 100,
-        label: "right",
+        label: "prawica",
     },
 ];
 
 function valuetext(value) {
     switch (value) {
         case 0:
-            return "left";
+            return "lewica";
         case 50:
-            return "center";
+            return "centrum";
         case 100:
-            return "right";
+            return "prawica";
         default:
-            return "center";
+            return "centrum";
     }
 }
 
@@ -38,7 +38,7 @@ function BeliefsSlider() {
                 id="discrete-slider-restrict"
                 gutterBottom
             >
-                Political Views
+                Poglądy polityczne
             </Typography>
             <Slider
                 track={false}

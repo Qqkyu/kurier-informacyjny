@@ -82,7 +82,7 @@ function Article({ source, title, link, position }) {
                     rel="noreferrer"
                     className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100"
                 >
-                    Go to article
+                    Artykuł
                 </a>
             </div>
         </div>
