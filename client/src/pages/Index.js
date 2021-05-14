@@ -7,9 +7,10 @@ import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import List from "../components/List";
 
-export default function IndexPage() {
+function IndexPage() {
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
+
     return (
         <>
             <div className="absolute bg-gray-200 w-full">
@@ -38,3 +39,5 @@ export default function IndexPage() {
         </>
     );
 }
+
+export default IndexPage;

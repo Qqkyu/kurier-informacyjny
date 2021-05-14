@@ -3,10 +3,10 @@ import React from "react";
 /* Sources logos */
 import KrytykaPolitycznaLogo from "../images/sources/krytyka-polityczna.png";
 import PolsatNewsLogo from "../images/sources/polsat-news.png";
-import DoRzeczyLogo from "../images/sources/do-rzeczy.jpg";
+import DoRzeczyLogo from "../images/sources/do-rzeczy.png";
 import OkoPressLogo from "../images/sources/oko-press.png";
 import InteriaLogo from "../images/sources/interia.png";
-import WprostLogo from "../images/sources/wprost.jpeg";
+import WprostLogo from "../images/sources/wprost.png";
 import Tvn24Logo from "../images/sources/tvn24.png";
 
 /* Miscellaneous */
