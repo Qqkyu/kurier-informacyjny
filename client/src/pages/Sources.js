@@ -6,15 +6,8 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Source from "../components/Source";
 
-const sources = [
-    "KrytykaPolityczna",
-    "OkoPress",
-    "Tvn24",
-    "Interia",
-    "PolsatNews",
-    "DoRzeczy",
-    "Wprost",
-];
+/* Miscellaneous */
+import SourcesContext from "../SourcesContext";
 
 function SourcesPage() {
     const [show, setShow] = useState(false);
@@ -51,9 +44,13 @@ function SourcesPage() {
                             </p>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            {sources.map((source) => (
-                                <Source source={source} />
-                            ))}
+                            <SourcesContext.Consumer>
+                                {(value) =>
+                                    Object.keys(value).map((src) => (
+                                        <Source source={src} key={src} />
+                                    ))
+                                }
+                            </SourcesContext.Consumer>
                         </div>
                     </div>
                 </div>
