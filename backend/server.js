@@ -1,22 +1,35 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var logger = require("morgan");
-var cors = require("cors");
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
+import userRouter from "../backend/resources/user.router.js";
 var app = express();
 
-app.use(logger("dev"));
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(cors);
-app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
-app.post("/signup");
-app.post("/signin");
+app.use("/user", userRouter);
 
-app.get("/api/display_category/:id");
-app.get("/api/user/");
+dotenv.config();
+
+const start = async () => {
+    try {
+        await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
+        app.listen(process.env.PORT, () => {
+            console.log(
+                `API listening on http://localhost:${process.env.PORT}/api'`
+            );
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+start();
 
 export default app;
