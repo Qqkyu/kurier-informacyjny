@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import User from "./user.model.js";
+import Source from "./source.model.js";
+
+const categories = {
+    left: ["krytykapolityczna.pl", "oko.press"],
+    right: ["dorzeczy.pl", "wprost.pl"],
+    center: ["tvn24.pl", "polsatnews.pl", "interia.pl"],
+};
 
 export const signup = async (req, res) => {
     if (!req.body.email || !req.body.password)
@@ -19,6 +26,15 @@ export const signup = async (req, res) => {
     } catch (e) {
         console.log(e);
         res.status(404).send(e);
+    }
+};
+
+export const getArticles = async (req, res) => {
+    if (!req.body.email || !req.body.password) {
+        const articles = await Source.find({
+            name: { $in: categories[req.body.category] },
+        });
+        res.status(200).send(articles);
     }
 };
 
