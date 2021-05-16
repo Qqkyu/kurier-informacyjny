@@ -28,13 +28,18 @@ function LoginPage() {
                 >
                     <div className="w-full sm:w-4/6 md:w-3/6 lg:w-2/3 text-gray-800 dark:text-gray-100 mb-12 sm:mb-0 flex flex-col justify-center px-2 sm:px-0">
                         <div className="px-2 flex flex-col items-center justify-center pt-12 lg:pt-0">
-                            <Logo
-                                width={43}
-                                height={44}
-                                viewBox="0 0 300 300"
-                                enableBackground="new 0 0 300 300"
-                                className="w-32 h-32"
-                            />
+                            <Link to="/">
+                                <Logo
+                                    width={43}
+                                    height={44}
+                                    viewBox="0 0 300 300"
+                                    enableBackground="new 0 0 300 300"
+                                    className="w-32 h-32"
+                                />
+                            </Link>
+                            <h2 className="text-4xl leading-tight pt-8">
+                                Kurier Informacyjny
+                            </h2>
                         </div>
                         <div className="mt-8 w-full px-2 sm:px-6">
                             <div className="flex flex-col mt-8">

@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 /* Pages */
+import RegisterPage from "./pages/Register";
 import SourcesPage from "./pages/Sources";
 import LoginPage from "./pages/Login";
 import IndexPage from "./pages/Index";
@@ -82,6 +83,9 @@ function App() {
         <SourcesContext.Provider value={sources}>
             <Router>
                 <Switch>
+                    <Route path="/register/">
+                        <RegisterPage />
+                    </Route>
                     <Route path="/login/">
                         <LoginPage />
                     </Route>
