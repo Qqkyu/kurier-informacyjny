@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import userRouter from "./resources/user/user.router.js";
 import { signup, login, verifyToken, logout, token } from "./resources/auth.js";
+import { getDefaultArticles } from "./resources/display.articles.js";
 var app = express();
 
 app.use(morgan("dev"));
@@ -17,6 +18,7 @@ app.post("/signup", signup);
 app.post("/login", login);
 app.delete("/logout", logout);
 app.get("/token", token);
+app.get("/articles", getDefaultArticles);
 
 app.use(verifyToken);
 app.use("/user", userRouter);
