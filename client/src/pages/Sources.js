@@ -30,7 +30,7 @@ function SourcesPage() {
                 <div className="text-gray-600 body-font">
                     <div className="container px-5 py-24 mx-auto ">
                         <div className="flex flex-col text-center w-full mb-20">
-                            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                            <h1 className="sm:text-5xl text-4xl font-medium title-font mb-4 text-gray-900">
                                 Dostępne Źródła
                             </h1>
                             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
@@ -43,12 +43,60 @@ function SourcesPage() {
                                 według tego źródła ono posiada.
                             </p>
                         </div>
+                        <div className="flex flex-col text-center w-full my-20">
+                            <h1 className="sm:text-4xl text-3xl font-medium title-font mb-4 text-gray-900">
+                                Lewica
+                            </h1>
+                        </div>
                         <div className="flex flex-wrap -m-4">
                             <SourcesContext.Consumer>
                                 {(value) =>
-                                    Object.keys(value).map((src) => (
-                                        <Source source={src} key={src} />
-                                    ))
+                                    Object.keys(value)
+                                        .filter(
+                                            (src) =>
+                                                value[src]["type"] === "Lewica"
+                                        )
+                                        .map((src) => (
+                                            <Source source={src} key={src} />
+                                        ))
+                                }
+                            </SourcesContext.Consumer>
+                        </div>
+                        <div className="flex flex-col text-center w-full my-20">
+                            <h1 className="sm:text-4xl text-3xl font-medium title-font mb-4 text-gray-900">
+                                Centrum
+                            </h1>
+                        </div>
+                        <div className="flex flex-wrap -m-4">
+                            <SourcesContext.Consumer>
+                                {(value) =>
+                                    Object.keys(value)
+                                        .filter(
+                                            (src) =>
+                                                value[src]["type"] === "Centrum"
+                                        )
+                                        .map((src) => (
+                                            <Source source={src} key={src} />
+                                        ))
+                                }
+                            </SourcesContext.Consumer>
+                        </div>
+                        <div className="flex flex-col text-center w-full my-20">
+                            <h1 className="sm:text-4xl text-3xl font-medium title-font mb-4 text-gray-900">
+                                Prawica
+                            </h1>
+                        </div>
+                        <div className="flex flex-wrap -m-4">
+                            <SourcesContext.Consumer>
+                                {(value) =>
+                                    Object.keys(value)
+                                        .filter(
+                                            (src) =>
+                                                value[src]["type"] === "Prawica"
+                                        )
+                                        .map((src) => (
+                                            <Source source={src} key={src} />
+                                        ))
                                 }
                             </SourcesContext.Consumer>
                         </div>

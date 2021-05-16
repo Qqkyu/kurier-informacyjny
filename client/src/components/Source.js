@@ -28,11 +28,7 @@ function Source({ source }) {
                                 {value[source]["type"]}
                             </h1>
                             <p className="leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Maecenas erat libero, blandit
-                                vitae tempor at, venenatis eu eros. Proin at
-                                ipsum quam. Donec lobortis sodales erat, non
-                                ultrices dui interdum ac.
+                                {value[source]["description"]}
                             </p>
                         </div>
                     </div>
