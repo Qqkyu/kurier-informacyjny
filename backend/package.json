@@ -4,8 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "devStart": "nodemon server.js",
-        "devStart2": "nodemon authServer.js"
+        "devStart": "nodemon server.js"
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",

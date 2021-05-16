@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import User from "./user.model.js";
-import Source from "./source.model.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
@@ -49,4 +48,9 @@ export const verifyToken = (req, res, next) => {
         req.user = user;
         next();
     });
+};
+
+export const logout = (req, res) => {
+    // delete refreshToken
+    res.sendStatus(204);
 };

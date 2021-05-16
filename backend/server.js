@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import userRouter from "../backend/resources/user.router.js";
-import { signup, login, verifyToken } from "./resources/utils.js";
+import { signup, login, verifyToken, logout } from "./resources/utils.js";
 var app = express();
 
 app.use(morgan("dev"));
@@ -15,6 +15,7 @@ app.use(cors());
 
 app.use("/signup", signup);
 app.use("/login", login);
+app.use("/logout", logout);
 
 app.use(verifyToken);
 app.use("/user", userRouter);
