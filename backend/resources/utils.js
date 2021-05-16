@@ -1,14 +1,7 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import User from "./user.model.js";
 import Source from "./source.model.js";
 import jwt from "jsonwebtoken";
-
-const categories = {
-    left: ["krytykapolityczna.pl", "oko.press"],
-    right: ["dorzeczy.pl", "wprost.pl"],
-    center: ["tvn24.pl", "polsatnews.pl", "interia.pl"],
-};
 
 export const signup = async (req, res) => {
     if (!req.body.email || !req.body.password)
@@ -28,35 +21,6 @@ export const signup = async (req, res) => {
     }
 };
 
-export const getArticles = async (req, res) => {
-    var articles;
-    if (!req.body.email) {
-        try {
-            articles = await Source.find({
-                name: { $in: categories[req.body.category] },
-            });
-        } catch (e) {
-            res.status(400).send();
-        }
-    } else {
-        try {
-            var user = await User.findOne({
-                email: req.body.email,
-            });
-            articles = await Source.find({
-                name: { $in: user[req.body.category] },
-            });
-        } catch (e) {
-            res.status(400).send();
-        }
-    }
-    res.status(200).send(articles);
-};
-
-const getAccessToken = (user) => {
-    return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
-};
-
 export const login = async (req, res) => {
     try {
         const email = req.body.email;
@@ -71,7 +35,11 @@ export const login = async (req, res) => {
     }
 };
 
-export const autheticateToken = (req, res, next) => {
+const getAccessToken = (user) => {
+    return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
+};
+
+export const verifyToken = (req, res, next) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
     if (token == null) return res.sendStatus(401);

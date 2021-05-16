@@ -1,7 +1,8 @@
-/*import app from "./server";
-
+//import app from "./server";
+/*
 const generateAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m'})
+    return jwt.si
+    gn(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m'})
 }
 
 app.post('/token', (req, res) => {
