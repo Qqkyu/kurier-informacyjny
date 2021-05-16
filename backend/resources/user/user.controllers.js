@@ -1,5 +1,5 @@
 import User from "./user.model.js";
-import Source from "./source.model.js";
+import Source from "../source/source.model.js";
 
 export const getArticles = async (req, res) => {
     var sources;

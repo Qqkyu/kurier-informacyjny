@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
-import User from "./user.model.js";
+import User from "./user/user.model.js";
 import jwt from "jsonwebtoken";
+import refreshTokens from "./token.model.js";
 
 export const signup = async (req, res) => {
     if (!req.body.email || !req.body.password)
@@ -20,22 +21,53 @@ export const signup = async (req, res) => {
     }
 };
 
+const generateAccessToken = (user) => {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "10m",
+    });
+};
+
 export const login = async (req, res) => {
     try {
         const email = req.body.email;
         const user = await User.findOne({ email: email });
         if (!(await bcrypt.compare(req.body.password, user.password)))
             res.send("incorrect password");
-        const accessToken = getAccessToken(user);
-        res.json({ accessToken: accessToken, email: user.email });
+        const accessToken = generateAccessToken({ email: user.email });
+        const refreshToken = jwt.sign(
+            user.toJSON(),
+            process.env.REFRESH_TOKEN_SECRET
+        );
+        await refreshTokens.findOneAndUpdate(
+            {},
+            { $push: { tokens: refreshToken } }
+        );
+        res.json({
+            accessToken: accessToken,
+            email: user.email,
+            refreshToken: refreshToken,
+        });
     } catch (e) {
         console.log(e);
         res.status(500).send();
     }
 };
 
-const getAccessToken = (user) => {
-    return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
+export const token = async (req, res) => {
+    const refreshToken = req.body.token;
+    if (refreshToken == null) return res.sendStatus(401);
+    if (
+        !(
+            await refreshTokens.findOne({}, { _id: 0, tokens: 1 })
+        ).tokens.includes(refreshToken)
+    )
+        return res.sendStatus(403);
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        const accessToken = generateAccessToken({ email: user.email });
+        res.json({ accessToken: accessToken });
+    });
 };
 
 export const verifyToken = (req, res, next) => {
@@ -50,7 +82,10 @@ export const verifyToken = (req, res, next) => {
     });
 };
 
-export const logout = (req, res) => {
-    // delete refreshToken
+export const logout = async (req, res) => {
+    await refreshTokens.findOneAndUpdate(
+        {},
+        { $pull: { tokens: req.body.token } }
+    );
     res.sendStatus(204);
 };

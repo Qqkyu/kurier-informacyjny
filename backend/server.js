@@ -4,8 +4,8 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import userRouter from "../backend/resources/user.router.js";
-import { signup, login, verifyToken, logout } from "./resources/utils.js";
+import userRouter from "./resources/user/user.router.js";
+import { signup, login, verifyToken, logout, token } from "./resources/auth.js";
 var app = express();
 
 app.use(morgan("dev"));
@@ -13,9 +13,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/signup", signup);
-app.use("/login", login);
-app.use("/logout", logout);
+app.post("/signup", signup);
+app.post("/login", login);
+app.delete("/logout", logout);
+app.get("/token", token);
 
 app.use(verifyToken);
 app.use("/user", userRouter);
