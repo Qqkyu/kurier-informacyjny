@@ -19,7 +19,11 @@ function Navbar({ show, setShow, profile, setProfile }) {
                 <div className="h-full flex items-center">
                     <Link to="/">
                         <div className="mr-10 flex items-center">
-                            <Logo />
+                            <Logo
+                                width="43"
+                                height="43"
+                                viewBox="0 0 210.63 250.24"
+                            />
                             <h3 className="text-base text-gray-800 font-bold tracking-normal leading-tight ml-3 hidden lg:block">
                                 Kurier Informacyjny
                             </h3>

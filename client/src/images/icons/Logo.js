@@ -1,15 +1,23 @@
 import React from "react";
 
-function Logo() {
+function Logo({
+    width,
+    height,
+    viewBox = "",
+    className = "",
+    enableBackground = "",
+}) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
-            width="43"
-            height="43"
-            ariaLabel="Home"
+            width={width}
+            height={height}
+            aria-label="Home"
             version="1.1"
-            viewBox="0 0 210.63 250.24"
+            viewBox={viewBox}
+            className={className}
+            enableBackground={enableBackground}
         >
             <defs>
                 <linearGradient id="linearGradient3173-6-5-94">

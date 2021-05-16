@@ -31,7 +31,11 @@ function Sidebar({ show, setShow }) {
                         <div className="flex items-center justify-between">
                             <Link to="/">
                                 <div className="flex items-center">
-                                    <Logo />
+                                    <Logo
+                                        width="43"
+                                        height="43"
+                                        viewBox="0 0 210.63 250.24"
+                                    />
                                     <p className="text-bold md:text2xl text-base pl-3 text-gray-800">
                                         Kurier Informacyjny
                                     </p>
