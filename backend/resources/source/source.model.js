@@ -12,6 +12,16 @@ const sourceSchema = new mongoose.Schema({
         required: true,
         default: [],
     },
+    url: {
+        type: String,
+        required: true,
+        maxLength: 150,
+    },
+    defaultAssignment: {
+        type: String,
+        required: true,
+        enum: ["left", "right", "center"],
+    },
 });
 
 const Source = mongoose.model("articles", sourceSchema);

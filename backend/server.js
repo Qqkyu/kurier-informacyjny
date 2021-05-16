@@ -3,9 +3,9 @@ import cors from "cors";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
 
-import userRouter from "../backend/resources/user.router.js";
+import userRouter from "./resources/user/user.router.js";
+import { signup, login, verifyToken, logout, token } from "./resources/auth.js";
 var app = express();
 
 app.use(morgan("dev"));
@@ -13,6 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.post("/signup", signup);
+app.post("/login", login);
+app.delete("/logout", logout);
+app.get("/token", token);
+
+app.use(verifyToken);
 app.use("/user", userRouter);
 
 dotenv.config();
@@ -22,7 +28,7 @@ const start = async () => {
         await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
         app.listen(process.env.PORT, () => {
             console.log(
-                `API listening on http://localhost:${process.env.PORT}/api'`
+                `API listening on http://localhost:${process.env.PORT}/'`
             );
         });
     } catch (e) {
