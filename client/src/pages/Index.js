@@ -8,6 +8,7 @@ import Slider from "../components/Slider";
 import List from "../components/List";
 
 function IndexPage() {
+    const section = "index";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
 
@@ -16,13 +17,14 @@ function IndexPage() {
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} />
+                <Sidebar show={show} setShow={setShow} section={section} />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
                     setProfile={setProfile}
                     show={show}
                     setShow={setShow}
+                    section={section}
                 />
                 {/* Navigation ends */}
                 {/* Page title starts */}

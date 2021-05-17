@@ -10,6 +10,7 @@ import Source from "../components/Source";
 import SourcesContext from "../SourcesContext";
 
 function SourcesPage() {
+    const section = "sources";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
 
@@ -18,13 +19,14 @@ function SourcesPage() {
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} />
+                <Sidebar show={show} setShow={setShow} section={section} />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
                     setProfile={setProfile}
                     show={show}
                     setShow={setShow}
+                    section={section}
                 />
                 {/* Navigation ends */}
                 <div className="text-gray-600 body-font">

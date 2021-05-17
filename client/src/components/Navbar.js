@@ -12,7 +12,7 @@ import Menu from "../images/icons/Menu";
 /* Images */
 import UserIcon from "../images/UserIcon.png";
 
-function Navbar({ show, setShow, profile, setProfile }) {
+function Navbar({ show, setShow, profile, setProfile, section }) {
     return (
         <nav className="w-full mx-auto bg-white shadow">
             <div className="container px-6 justify-between h-16 flex items-center lg:items-stretch mx-auto">
@@ -32,19 +32,31 @@ function Navbar({ show, setShow, profile, setProfile }) {
                     <ul className="pr-12 xl:flex items-center h-full hidden">
                         <Link
                             to="/"
-                            className="cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal border-b-2 border-indigo-700"
+                            className={
+                                section === "index"
+                                    ? "cursor-pointer h-full flex items-center text-sm text-indigo-700 tracking-normal border-b-2 border-indigo-700"
+                                    : "cursor-pointer h-full flex items-center text-sm text-gry-800 tracking-normal"
+                            }
                         >
                             <li>Strona Główna</li>
                         </Link>
                         <Link
                             to="/assignments/"
-                            className="cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal"
+                            className={
+                                section === "assignments"
+                                    ? "cursor-pointer h-full flex items-center text-sm text-indigo-700 mx-10 tracking-normal border-b-2 border-indigo-700"
+                                    : "cursor-pointer h-full flex items-center text-sm text-gry-800 mx-10 tracking-normal"
+                            }
                         >
                             <li>Przypisania</li>
                         </Link>
                         <Link
                             to="/sources/"
-                            className="cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal"
+                            className={
+                                section === "sources"
+                                    ? "cursor-pointer h-full flex items-center text-sm text-indigo-700 mr-10 tracking-normal border-b-2 border-indigo-700"
+                                    : "cursor-pointer h-full flex items-center text-sm text-gry-800 mr-10 tracking-normal"
+                            }
                         >
                             <li>Źródła</li>
                         </Link>

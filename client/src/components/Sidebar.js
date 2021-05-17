@@ -12,7 +12,7 @@ import Logo from "../images/icons/Logo";
 /* Images */
 import UserIcon from "../images/UserIcon.png";
 
-function Sidebar({ show, setShow }) {
+function Sidebar({ show, setShow, section }) {
     return (
         <div
             className={
@@ -54,9 +54,21 @@ function Sidebar({ show, setShow }) {
                                 <li className="text-white pt-8">
                                     <div className="flex items-center">
                                         <div className="md:w-6 md:h-6 w-5 h-5">
-                                            <HomeIcon className="text-indigo-500" />
+                                            <HomeIcon
+                                                className={
+                                                    section === "index"
+                                                        ? "text-indigo-500"
+                                                        : "text-gray-800"
+                                                }
+                                            />
                                         </div>
-                                        <p className="text-indigo-500 ml-3 text-lg">
+                                        <p
+                                            className={
+                                                section === "index"
+                                                    ? "text-indigo-500 ml-3 text-lg"
+                                                    : "text-gray-800 ml-3 text-lg"
+                                            }
+                                        >
                                             Strona Główna
                                         </p>
                                     </div>
@@ -67,9 +79,22 @@ function Sidebar({ show, setShow }) {
                                     <div className="flex items-center">
                                         <div className="flex items-center">
                                             <div className="md:w-6 md:h-6 w-5 h-5">
-                                                <CogIcon className="text-gray-700" />
+                                                <CogIcon
+                                                    className={
+                                                        section ===
+                                                        "assignments"
+                                                            ? "text-indigo-500"
+                                                            : "text-gray-800"
+                                                    }
+                                                />
                                             </div>
-                                            <p className="text-gray-700 ml-3 text-lg">
+                                            <p
+                                                className={
+                                                    section === "assignments"
+                                                        ? "text-indigo-500 ml-3 text-lg"
+                                                        : "text-gray-800 ml-3 text-lg"
+                                                }
+                                            >
                                                 Przypisania
                                             </p>
                                         </div>
@@ -80,9 +105,21 @@ function Sidebar({ show, setShow }) {
                                 <li className="text-gray-800 pt-8">
                                     <div className="flex items-center">
                                         <div className="md:w-6 md:h-6 w-5 h-5">
-                                            <CollectionIcon className="text-gray-800" />
+                                            <CollectionIcon
+                                                className={
+                                                    section === "sources"
+                                                        ? "text-indigo-500"
+                                                        : "text-gray-800"
+                                                }
+                                            />
                                         </div>
-                                        <p className="text-gray-800 ml-3 text-lg">
+                                        <p
+                                            className={
+                                                section === "sources"
+                                                    ? "text-indigo-500 ml-3 text-lg"
+                                                    : "text-gray-800 ml-3 text-lg"
+                                            }
+                                        >
                                             Źródła
                                         </p>
                                     </div>
