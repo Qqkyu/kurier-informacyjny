@@ -2,8 +2,10 @@
 import React from "react";
 
 /* Miscellaneous */
-import Tooltip from "@material-ui/core/Tooltip";
 import SourcesContext from "../SourcesContext";
+
+/* Material-UI */
+import Tooltip from "@material-ui/core/Tooltip";
 
 function Article({ source, title, position }) {
     return (

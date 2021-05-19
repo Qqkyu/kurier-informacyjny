@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 /* Pages */
+import AssignmentsPage from "./pages/Assignments";
 import RegisterPage from "./pages/Register";
 import SourcesPage from "./pages/Sources";
 import LoginPage from "./pages/Login";
@@ -92,7 +93,9 @@ function App() {
                     <Route path="/sources/">
                         <SourcesPage />
                     </Route>
-                    <Route path="/assignments">{/*Assignments*/}</Route>
+                    <Route path="/assignments">
+                        <AssignmentsPage />
+                    </Route>
                     <Route path="/">
                         <IndexPage />
                     </Route>
