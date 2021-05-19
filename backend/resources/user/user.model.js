@@ -12,20 +12,22 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        left: {
+        categories: {
             type: Array,
-            required: true,
-            default: ["krytykapolityczna.pl", "oko.press"],
-        },
-        center: {
-            type: Array,
-            required: true,
-            default: ["tvn24.pl", "polsatnews.pl", "interia.pl"],
-        },
-        right: {
-            type: Array,
-            required: true,
-            default: ["dorzeczy.pl", "wprost.pl"],
+            default: [
+                {
+                    category: "left",
+                    sources: ["krytykapolityczna.pl", "oko.press"],
+                },
+                {
+                    category: "center",
+                    sources: ["tvn24.pl", "polsatnews.pl", "interia.pl"],
+                },
+                {
+                    category: "right",
+                    sources: ["dorzeczy.pl", "wprost.pl"],
+                },
+            ],
         },
     },
     { timestamps: true }

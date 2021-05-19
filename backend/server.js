@@ -20,7 +20,7 @@ app.delete("/logout", logout);
 app.get("/token", token);
 app.get("/articles", getDefaultArticles);
 
-app.use(verifyToken);
+//app.use(verifyToken);
 app.use("/user", userRouter);
 
 dotenv.config();

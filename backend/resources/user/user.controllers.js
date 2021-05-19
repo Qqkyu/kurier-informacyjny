@@ -29,7 +29,15 @@ export const getArticles = async (req, res) => {
 export const changeAssignment = async (req, res) => {
     if (!req.body.email) res.status(400).send();
     try {
+        const ss = await User.deleteOne(
+            { email: req.body.email },
+            { multi: true, arrayFilters: [{ element: req.body.source }] }
+        );
+        console.log("tutaj");
+        console.log(ss);
+        res.status(200).send();
     } catch (e) {
+        console.log(e);
         res.status(400).send();
     }
 };
