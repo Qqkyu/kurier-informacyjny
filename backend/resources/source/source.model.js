@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const sourceSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Number,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
@@ -18,9 +22,9 @@ const sourceSchema = new mongoose.Schema({
         maxLength: 150,
     },
     defaultAssignment: {
-        type: String,
+        type: mongoose.Number,
         required: true,
-        enum: ["left", "right", "center"],
+        enum: [0, 1, 2],
     },
 });
 

@@ -16,16 +16,13 @@ const userSchema = new mongoose.Schema(
             type: Array,
             default: [
                 {
-                    category: "left",
-                    sources: ["krytykapolityczna.pl", "oko.press"],
+                    sources: [1, 2],
                 },
                 {
-                    category: "center",
-                    sources: ["tvn24.pl", "polsatnews.pl", "interia.pl"],
+                    sources: [0, 3, 5],
                 },
                 {
-                    category: "right",
-                    sources: ["dorzeczy.pl", "wprost.pl"],
+                    sources: [4, 6],
                 },
             ],
         },

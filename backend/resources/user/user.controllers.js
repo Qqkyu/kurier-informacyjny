@@ -1,12 +1,11 @@
 import User from "./user.model.js";
 import Source from "../source/source.model.js";
-
 export const getArticles = async (req, res) => {
     var sources;
     if (!req.body.email) {
         try {
             sources = await Source.find({
-                defaultAssignment: req.body.category,
+                defaultAssignment: req.body.category_id,
             });
         } catch (e) {
             res.status(400).send();
@@ -17,9 +16,12 @@ export const getArticles = async (req, res) => {
                 email: req.body.email,
             });
             sources = await Source.find({
-                name: { $in: user[req.body.category] },
+                _id: {
+                    $in: user.categories[req.body.category_id].sources,
+                },
             });
         } catch (e) {
+            console.log(e);
             res.status(400).send();
         }
     }
@@ -29,12 +31,21 @@ export const getArticles = async (req, res) => {
 export const changeAssignment = async (req, res) => {
     if (!req.body.email) res.status(400).send();
     try {
-        const ss = await User.deleteOne(
+        await User.update(
             { email: req.body.email },
-            { multi: true, arrayFilters: [{ element: req.body.source }] }
+            {
+                $pull: { "categories.$[].sources": req.body.source_id },
+            }
         );
-        console.log("tutaj");
-        console.log(ss);
+        await User.update(
+            { email: req.body.email },
+            {
+                $push: {
+                    [`categories.${req.body.category_id}.sources`]:
+                        req.body.source_id,
+                },
+            }
+        );
         res.status(200).send();
     } catch (e) {
         console.log(e);
