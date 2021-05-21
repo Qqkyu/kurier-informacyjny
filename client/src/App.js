@@ -1,4 +1,5 @@
 /* React */
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 /* Pages */
@@ -10,6 +11,7 @@ import IndexPage from "./pages/Index";
 
 /* Miscellaneous */
 import SourcesContext from "./SourcesContext";
+import axios from "axios";
 
 /* Sources logos */
 import KrytykaPolitycznaLogo from "./images/sources/krytyka-polityczna.png";
@@ -20,6 +22,7 @@ import InteriaLogo from "./images/sources/interia.png";
 import WprostLogo from "./images/sources/wprost.png";
 import Tvn24Logo from "./images/sources/tvn24.png";
 
+/*
 const sources = {
     DoRzeczy: {
         logo: DoRzeczyLogo,
@@ -78,8 +81,16 @@ const sources = {
         link: "https://www.wprost.pl/",
     },
 };
-
+*/
 function App() {
+    const [sources, setSources] = useState();
+    axios
+        .get("http://localhost:5400/sources", { crossdomain: true })
+        .then((response) => {
+            console.log(response.data);
+            setSources(response.data);
+        });
+
     return (
         <SourcesContext.Provider value={sources}>
             <Router>
