@@ -11,6 +11,9 @@ const sourceSchema = new mongoose.Schema({
         trim: true,
         maxLength: 50,
     },
+    description: {
+        type: String,
+    },
     articles: {
         type: Array,
         required: true,
@@ -28,5 +31,5 @@ const sourceSchema = new mongoose.Schema({
     },
 });
 
-const Source = mongoose.model("articles", sourceSchema);
+const Source = mongoose.model("sources", sourceSchema);
 export default Source;

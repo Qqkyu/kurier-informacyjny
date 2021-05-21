@@ -4,11 +4,16 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "devStart": "nodemon server.js"
+        "devStart": "nodemon server.js",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",
-        "express": "~4.16.1"
+        "express": "~4.16.1",
+        "jest": "^26.6.3"
+    },
+    "jest": {
+        "testEnvironment": "node"
     }
 }
