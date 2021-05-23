@@ -1,32 +1,5 @@
 import User from "./user.model.js";
-import Source from "../source/source.model.js";
-export const getArticles = async (req, res) => {
-    var sources;
-    if (!req.body.email) {
-        try {
-            sources = await Source.find({
-                defaultAssignment: req.body.category_id,
-            });
-        } catch (e) {
-            res.status(400).send();
-        }
-    } else {
-        try {
-            var user = await User.findOne({
-                email: req.body.email,
-            });
-            sources = await Source.find({
-                _id: {
-                    $in: user.categories[req.body.category_id].sources,
-                },
-            });
-        } catch (e) {
-            console.log(e);
-            res.status(400).send();
-        }
-    }
-    res.status(200).send(sources);
-};
+import { createPassword } from "../auth.js";
 
 export const changeAssignment = async (req, res) => {
     if (!req.body.email) res.status(400).send();
@@ -48,7 +21,40 @@ export const changeAssignment = async (req, res) => {
         );
         res.status(200).send();
     } catch (e) {
-        console.log(e);
-        res.status(400).send();
+        res.status(400).send(e);
+    }
+};
+
+export const findUser = async (email) => {
+    return await User.findOne({ email: email });
+};
+
+export const deleteUser = async (email) => {
+    try {
+        await User.findOneAndRemove({ email: email });
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const updatePassword = async (email) => {
+    try {
+        await User.updateOne({ email: email });
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+
+export const resetPassword = async (email, password) => {
+    try {
+        await User.updateOne(
+            { email: email },
+            { $set: { password: await createPassword(password) } }
+        );
+        return true;
+    } catch (e) {
+        return false;
     }
 };
