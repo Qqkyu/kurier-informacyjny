@@ -83,37 +83,46 @@ const sources = {
 };
 */
 function App() {
+    var jsx;
     const [sources, setSources] = useState();
+
     axios
         .get("http://localhost:5400/sources", { crossdomain: true })
         .then((response) => {
             console.log(response.data);
             setSources(response.data);
+        })
+        .then(() => {
+            jsx = (
+                <SourcesContext.Provider value={sources}>
+                    <Router>
+                        <Switch>
+                            <Route path="/register/">
+                                <RegisterPage />
+                            </Route>
+                            <Route path="/login/">
+                                <LoginPage />
+                            </Route>
+                            <Route path="/sources/">
+                                <SourcesPage />
+                            </Route>
+                            <Route path="/assignments">
+                                <AssignmentsPage />
+                            </Route>
+                            <Route path="/">
+                                <IndexPage />
+                            </Route>
+                        </Switch>
+                    </Router>
+                </SourcesContext.Provider>
+            );
         });
 
-    return (
-        <SourcesContext.Provider value={sources}>
-            <Router>
-                <Switch>
-                    <Route path="/register/">
-                        <RegisterPage />
-                    </Route>
-                    <Route path="/login/">
-                        <LoginPage />
-                    </Route>
-                    <Route path="/sources/">
-                        <SourcesPage />
-                    </Route>
-                    <Route path="/assignments">
-                        <AssignmentsPage />
-                    </Route>
-                    <Route path="/">
-                        <IndexPage />
-                    </Route>
-                </Switch>
-            </Router>
-        </SourcesContext.Provider>
-    );
+    if (typeof jsx == "undefined") {
+        return <></>;
+    } else {
+        return jsx;
+    }
 }
 
 export default App;
