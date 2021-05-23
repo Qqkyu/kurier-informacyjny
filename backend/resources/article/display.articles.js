@@ -1,13 +1,12 @@
 import Source from "../source/source.model.js";
 import User from "../user/user.model.js";
+import { getSources } from "../source/source.controllers.js";
 
 export const getArticles = async (req, res) => {
     var sources;
     if (!req.body.email) {
         try {
-            var sources = await Source.find({
-                defaultAssignment: req.body.category_id,
-            });
+            var sources = await getSources(req.body.category_id);
             res.status(200).send(sources);
         } catch (e) {
             res.status(400).send();
