@@ -1,5 +1,5 @@
 /* React */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 /* Pages */
@@ -83,46 +83,41 @@ const sources = {
 };
 */
 function App() {
-    var jsx;
     const [sources, setSources] = useState();
 
-    axios
-        .get("http://localhost:5400/sources", { crossdomain: true })
-        .then((response) => {
-            console.log(response.data);
-            setSources(response.data);
-        })
-        .then(() => {
-            jsx = (
-                <SourcesContext.Provider value={sources}>
-                    <Router>
-                        <Switch>
-                            <Route path="/register/">
-                                <RegisterPage />
-                            </Route>
-                            <Route path="/login/">
-                                <LoginPage />
-                            </Route>
-                            <Route path="/sources/">
-                                <SourcesPage />
-                            </Route>
-                            <Route path="/assignments">
-                                <AssignmentsPage />
-                            </Route>
-                            <Route path="/">
-                                <IndexPage />
-                            </Route>
-                        </Switch>
-                    </Router>
-                </SourcesContext.Provider>
-            );
-        });
+    useEffect(() => {
+        axios
+            .get("http://localhost:5400/sources", { crossdomain: true })
+            .then((response) => {
+                console.log(response.data);
+                setSources(response.data);
+            })
+            .then(() => {});
+    }, []);
 
-    if (typeof jsx == "undefined") {
-        return <></>;
-    } else {
-        return jsx;
-    }
+    return (
+        <SourcesContext.Provider value={sources}>
+            <Router>
+                <Switch>
+                    <Route path="/register/">
+                        <RegisterPage />
+                    </Route>
+                    <Route path="/login/">
+                        <LoginPage />
+                    </Route>
+                    <Route path="/sources/">
+                        <SourcesPage />
+                    </Route>
+                    <Route path="/assignments">
+                        <AssignmentsPage />
+                    </Route>
+                    <Route path="/">
+                        <IndexPage />
+                    </Route>
+                </Switch>
+            </Router>
+        </SourcesContext.Provider>
+    );
 }
 
 export default App;
