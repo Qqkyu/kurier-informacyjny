@@ -1,5 +1,5 @@
 /* React */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 /* Pages */
@@ -84,12 +84,16 @@ const sources = {
 */
 function App() {
     const [sources, setSources] = useState();
-    axios
-        .get("http://localhost:5400/sources", { crossdomain: true })
-        .then((response) => {
-            console.log(response.data);
-            setSources(response.data);
-        });
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:5400/sources", { crossdomain: true })
+            .then((response) => {
+                console.log(response.data);
+                setSources(response.data);
+            })
+            .then(() => {});
+    }, []);
 
     return (
         <SourcesContext.Provider value={sources}>
