@@ -26,6 +26,7 @@ function IndexPage() {
                     show={show}
                     setShow={setShow}
                     section={section}
+                    logged={false}
                 />
                 {/* Navigation ends */}
                 {/* Page title starts */}

@@ -12,7 +12,7 @@ import Menu from "../images/icons/Menu";
 /* Images */
 import UserIcon from "../images/UserIcon.png";
 
-function Navbar({ show, setShow, profile, setProfile, section }) {
+function Navbar({ show, setShow, profile, setProfile, section, logged }) {
     return (
         <nav className="w-full mx-auto bg-white shadow">
             <div className="container px-6 justify-between h-16 flex items-center lg:items-stretch mx-auto">
@@ -84,16 +84,33 @@ function Navbar({ show, setShow, profile, setProfile, section }) {
                                         </li>
                                     </ul>
                                 ) : (
-                                    ""
+                                    <></>
                                 )}
-                                <img
-                                    className="rounded h-10 w-10 object-cover"
-                                    src={UserIcon}
-                                    alt="logo"
-                                />
-                                <p className="text-gray-800 text-sm ml-2">
-                                    kulmisiu007@gmail.com
-                                </p>
+                                {logged ? (
+                                    <>
+                                        <img
+                                            className="rounded h-10 w-10 object-cover"
+                                            src={UserIcon}
+                                            alt="logo"
+                                        />
+                                        <p className="text-gray-800 text-sm ml-2">
+                                            kulmisiu007@gmail.com
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to="/login/">
+                                            <button className="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm">
+                                                Logowanie
+                                            </button>
+                                        </Link>
+                                        <Link to="/register/">
+                                            <button className="mx-2 my-2 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-6 py-2 text-sm">
+                                                Rejestracja
+                                            </button>
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
