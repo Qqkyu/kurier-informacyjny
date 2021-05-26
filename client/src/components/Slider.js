@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 
@@ -30,7 +30,7 @@ function valuetext(value) {
     }
 }
 
-function BeliefsSlider() {
+function BeliefsSlider({ setValue }) {
     return (
         <div className="w-full">
             <Typography
@@ -47,6 +47,7 @@ function BeliefsSlider() {
                 aria-labelledby="track-false-slider"
                 step={null}
                 marks={marks}
+                onChange={(e, val) => setValue(val)}
             />
         </div>
     );
