@@ -3,13 +3,17 @@ import User from "./user/user.model.js";
 import jwt from "jsonwebtoken";
 import refreshTokens from "./token.model.js";
 
+export const createPassword = async (password) => {
+    const salt = await bcrypt.genSalt();
+    return await bcrypt.hash(password, salt);
+};
+
 export const signup = async (req, res) => {
     if (!req.body.email || !req.body.password)
         return res.status(400).send({ message: "need email and password" });
     try {
         const email = req.body.email;
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        var hashedPassword = await createPassword(req.body.password);
         const user = await User.create({
             email: email,
             password: hashedPassword,
@@ -42,7 +46,7 @@ export const login = async (req, res) => {
             {},
             { $push: { tokens: refreshToken } }
         );
-        res.json({
+        res.status(200).send({
             accessToken: accessToken,
             email: user.email,
             refreshToken: refreshToken,
@@ -53,15 +57,16 @@ export const login = async (req, res) => {
     }
 };
 
+export const isTokenValid = async (token) => {
+    return (
+        await refreshTokens.findOne({}, { _id: 0, tokens: 1 })
+    ).tokens.includes(refreshToken);
+};
+
 export const token = async (req, res) => {
     const refreshToken = req.body.token;
     if (refreshToken == null) return res.sendStatus(401);
-    if (
-        !(
-            await refreshTokens.findOne({}, { _id: 0, tokens: 1 })
-        ).tokens.includes(refreshToken)
-    )
-        return res.sendStatus(403);
+    if (!isTokenValid(refreshToken)) return res.sendStatus(403);
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
@@ -87,5 +92,5 @@ export const logout = async (req, res) => {
         {},
         { $pull: { tokens: req.body.token } }
     );
-    res.sendStatus(204);
+    res.status(204).send();
 };

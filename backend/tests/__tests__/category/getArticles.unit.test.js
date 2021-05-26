@@ -1,15 +1,16 @@
-import { getArticles } from "../resources/user/user.controllers.js";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import { getArticles } from "../../../resources/article/display.articles.js";
+import {
+    connectDatabase,
+    closeDatabaseConnection,
+} from "../../databaseSetup.js";
 
 export default describe("getArticles", () => {
     beforeAll(async () => {
-        dotenv.config();
-        await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
+        await connectDatabase();
     });
 
-    afterAll(() => {
-        mongoose.connection.close();
+    afterAll(async () => {
+        await closeDatabaseConnection();
     });
 
     test("should get articles from 'right' category", async () => {
