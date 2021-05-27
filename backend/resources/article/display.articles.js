@@ -56,6 +56,7 @@ export const mapSources = async (req, res) => {
         sources = sources.reduce((acc, src) => {
             var mappedSrc = {
                 logo: `http://localhost:${process.env.PORT}/sources/${src["_id"]}.png`,
+                id: src["_id"],
                 articles: src["articles"],
                 link: src["link"],
                 name: src["name"],
