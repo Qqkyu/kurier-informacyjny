@@ -1,6 +1,9 @@
 import Source from "../source/source.model.js";
 import User from "../user/user.model.js";
 import { getSources } from "../source/source.controllers.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const getArticles = async (req, res) => {
     var sources;
@@ -24,7 +27,7 @@ export const getArticles = async (req, res) => {
 
             var r = sources.reduce((acc, src) => {
                 var mappedSrc = {
-                    logo: src["logo"],
+                    logo: `http://localhost:${process.env.DB_URI}/sources/${src[_id]}.png`,
                     articles: src["articles"],
                     link: src["link"],
                     name: src["name"],
@@ -47,12 +50,12 @@ export const getArticles = async (req, res) => {
     }
 };
 
-export const getSources = async (req, res) => {
+export const mapSources = async (req, res) => {
     try {
         var sources = await Source.find({});
         sources = sources.reduce((acc, src) => {
             var mappedSrc = {
-                logo: src["logo"],
+                logo: `http://localhost:${process.env.PORT}/sources/${src["_id"]}.png`,
                 articles: src["articles"],
                 link: src["link"],
                 name: src["name"],
@@ -69,6 +72,7 @@ export const getSources = async (req, res) => {
         }, {});
         res.status(200).send(sources);
     } catch (e) {
+        console.log(e);
         res.status(400).send();
     }
 };

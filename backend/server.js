@@ -8,7 +8,7 @@ import userRouter from "./resources/user/user.router.js";
 import { signup, login, verifyToken, logout, token } from "./resources/auth.js";
 import {
     getArticles,
-    getSources,
+    mapSources,
 } from "./resources/article/display.articles.js";
 var app = express();
 
@@ -23,7 +23,7 @@ app.post("/login", login);
 app.delete("/logout", logout);
 app.get("/token", token);
 app.get("/articles", getArticles);
-app.get("/sources", getSources);
+app.get("/sources", mapSources);
 
 //app.use(verifyToken);
 app.use("/user", userRouter);
