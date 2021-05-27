@@ -26,6 +26,7 @@ function App() {
         axios
             .get("http://localhost:5000/sources", { crossdomain: true })
             .then((response) => {
+                console.log(response.data);
                 setSources(response.data);
             });
     }, []);

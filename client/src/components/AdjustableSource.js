@@ -10,6 +10,12 @@ import IconButton from "@material-ui/core/IconButton";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 
+/* Utils */
+import { getUser, getToken } from "../utils/Common";
+
+/* axios */
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
     close: {
         padding: theme.spacing(0.5),
@@ -39,8 +45,33 @@ function Source({ source }) {
         if (curSources[source]["type"] === newType) {
             message = `Źródło "${sources[source]["name"]}" jest już przypisane do kategorii ${newType}`;
         } else {
-            curSources[source]["type"] = newType;
-            setContextSources(curSources);
+            axios
+                .put(
+                    "http://localhost:5000/user/change_assignment",
+                    {
+                        email: getUser(),
+                        category_id:
+                            newType === "Lewica"
+                                ? 0
+                                : newType === "Centrum"
+                                ? 1
+                                : 2,
+                    },
+                    {
+                        headers: {
+                            authorization: `Bearer ${getToken()}`,
+                        },
+                    }
+                )
+                .then(function (response) {
+                    if (response.status === 200) {
+                        curSources[source]["type"] = newType;
+                        setContextSources(curSources);
+                    }
+                })
+                .catch(() => {
+                    message = `Nie udało się przypisać źródła "${sources[source]["name"]}" do kategorii ${newType}`;
+                });
         }
         setSnackPack((prev) => [
             ...prev,
@@ -60,6 +91,7 @@ function Source({ source }) {
     };
 
     const classes = useStyles();
+
     return (
         <div className="lg:w-1/3 sm:w-1/2 p-4">
             <div className="flex relative">
