@@ -4,7 +4,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import userRouter from "./resources/user/user.router.js";
-import { signup, login, verifyToken, logout, token } from "./resources/auth.js";
+import {
+    signup,
+    login,
+    verifyToken,
+    logout,
+    token,
+} from "./resources/auth/auth.js";
 import {
     getArticles,
     mapSources,
