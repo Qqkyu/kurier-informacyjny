@@ -18,14 +18,14 @@ function Sidebar({ show, setShow, section }) {
             className={
                 show
                     ? "w-full h-full absolute z-40  transform  translate-x-0 "
-                    : "   w-full h-full absolute z-40  transform -translate-x-full"
+                    : "w-full h-full absolute z-40  transform -translate-x-full"
             }
         >
             <div
                 className="bg-gray-800 opacity-50 inset-0 fixed w-full h-full"
                 onClick={() => setShow(!show)}
             />
-            <div className="w-64 z-20 absolute left-0 z-40 top-0 bg-white shadow flex-col justify-between transition duration-150 ease-in-out h-full">
+            <div className="sticky w-64 z-20 absolute left-0 z-40 top-0 bg-white shadow flex-col justify-between transition duration-150 ease-in-out h-screen">
                 <div className="flex flex-col justify-between h-full">
                     <div className="px-6 pt-4">
                         <div className="flex items-center justify-between">

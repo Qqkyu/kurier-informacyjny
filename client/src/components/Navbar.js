@@ -100,7 +100,7 @@ function Navbar({ show, setShow, profile, setProfile, section, logged }) {
                                 ) : (
                                     <>
                                         <Link to="/login/">
-                                            <button className="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm">
+                                            <button className="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 hover:bg-gray-100 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm">
                                                 Logowanie
                                             </button>
                                         </Link>

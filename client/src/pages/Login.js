@@ -1,28 +1,41 @@
 /* React */
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 /* Locally stored icons */
 import Logo from "../images/icons/Logo";
 
+/* Axios */
+import axios from "axios";
+
+/* Utils */
+import { setUserSession } from "../utils/Common";
+
 function LoginPage() {
-    let form = useRef(null);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const form_data = new FormData(form.current);
-        let payload = {};
-        form_data.forEach(function (value, key) {
-            payload[key] = value;
-        });
-        //  console.log("payload", payload);
-        // Place your API call here to submit your payload.
+        if (email.length && password.length) {
+            const payload = {
+                email: email,
+                password: password,
+            };
+            axios
+                .post("http://localhost:5000/login", payload)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        setUserSession(response.data.token, response.data.user);
+                    }
+                });
+        }
     };
 
     return (
         <section className="bg-white {-- h-screen --}">
             <div className="mx-auto flex justify-center h-full flex-col lg:flex-row">
                 <form
-                    ref={form}
                     onsubmit={handleSubmit}
                     className="w-full lg:w-1/2 flex justify-center bg-white dark:bg-gray-900"
                 >
@@ -50,11 +63,14 @@ function LoginPage() {
                                     Email
                                 </label>
                                 <input
+                                    autoFocus
                                     required
                                     id="email"
                                     name="email"
                                     className="h-10 px-2 w-full rounded mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 dark:focus:border-indigo-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 border-gray-300 border shadow"
                                     type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="flex flex-col mt-5">
@@ -70,6 +86,10 @@ function LoginPage() {
                                     name="password"
                                     className="h-10 px-2 w-full rounded mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 dark:focus:border-indigo-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 border-gray-300 border shadow"
                                     type="password"
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -85,12 +105,6 @@ function LoginPage() {
                                     Zapamiętaj mnie
                                 </label>
                             </div>
-                            <a
-                                className="text-xs text-indigo-600"
-                                href="javascript: void(0)"
-                            >
-                                Nie pamiętasz hasła?
-                            </a>
                         </div>
                         <div className="px-2 sm:mb-16 sm:px-6">
                             <button
