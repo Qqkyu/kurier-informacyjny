@@ -13,12 +13,15 @@ import {
     getArticles,
     mapSources,
 } from "./resources/article/display.articles.js";
+import bodyParser from "body-parser";
+
 var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("public"));
+app.use(bodyParser());
 
 app.post("/signup", signup);
 app.post("/login", login);
