@@ -1,6 +1,6 @@
 /* React */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 /* axios */
 import axios from "axios";
@@ -9,9 +9,10 @@ import axios from "axios";
 import Logo from "../images/icons/Logo";
 
 /* Utils */
-import { getUser, setUserSession } from "../utils/Common";
+import { setUserSession } from "../utils/Common";
 
 function RegisterPage() {
+    const [redirect, setRedirect] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -25,21 +26,24 @@ function RegisterPage() {
             axios
                 .post("http://localhost:5000/signup", payload)
                 .then(function (response) {
-                    console.log(response);
                     if (response.status === 200) {
-                        console.log(response.email, response.token);
                         axios.post("http://localhost:5000/login", payload);
                         setUserSession(
                             response.data.token,
                             response.data.email
                         );
+                        setRedirect(true);
                     }
-                    console.log(getUser());
+                })
+                .catch(() => {
+                    alert("Użytkownik o podanym mailu i haśle już istnieje");
                 });
         }
     };
 
-    return (
+    return redirect ? (
+        <Redirect to="/" />
+    ) : (
         <section className="bg-indigo-600 {-- h-screen --}">
             <div className="mx-auto flex justify-center lg:items-center h-full">
                 <form
@@ -56,7 +60,7 @@ function RegisterPage() {
                                 className="w-24 h-24"
                             />
                         </Link>
-                        <h2 className="text-4xl leading-tight pt-8">
+                        <h2 className="text-4xl leading-tight pt-8 text-center">
                             Kurier Informacyjny
                         </h2>
                     </div>
@@ -100,18 +104,6 @@ function RegisterPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                        </div>
-                    </div>
-                    <div className="pt-6 w-full flex justify-between px-2 sm:px-6">
-                        <div className="flex items-center">
-                            <input
-                                id="rememberme"
-                                className="w-3 h-3 mr-2"
-                                type="checkbox"
-                            />
-                            <label htmlFor="rememberme" className="text-xs">
-                                Zapamiętaj mnie
-                            </label>
                         </div>
                     </div>
                     <div className="px-2 sm:px-6">

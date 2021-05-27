@@ -1,5 +1,6 @@
 /* React */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Redirect } from "react-router-dom";
 
 /* Components */
 import Sidebar from "../components/Sidebar";
@@ -8,18 +9,27 @@ import Navbar from "../components/Navbar";
 
 /* Miscellaneous */
 import SourcesContext from "../SourcesContext";
+import { getUser } from "../utils/Common";
 
-function AssignmentsPage() {
+function AssignmentsPage({ setUser }) {
+    const { sources } = useContext(SourcesContext);
     const section = "assignments";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
 
-    return (
+    return getUser() == null ? (
+        <Redirect to="/login/" />
+    ) : (
         <>
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} section={section} />
+                <Sidebar
+                    show={show}
+                    setShow={setShow}
+                    section={section}
+                    setUser={setUser}
+                />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
@@ -27,6 +37,7 @@ function AssignmentsPage() {
                     show={show}
                     setShow={setShow}
                     section={section}
+                    setUser={setUser}
                 />
                 <div className="text-gray-600 body-font">
                     <div className="container px-5 py-24 mx-auto ">
@@ -43,13 +54,9 @@ function AssignmentsPage() {
                             </p>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            <SourcesContext.Consumer>
-                                {(value) =>
-                                    Object.keys(value).map((src) => (
-                                        <Source source={src} key={src} />
-                                    ))
-                                }
-                            </SourcesContext.Consumer>
+                            {Object.keys(sources).map((src) => (
+                                <Source source={src} key={src} />
+                            ))}
                         </div>
                     </div>
                 </div>

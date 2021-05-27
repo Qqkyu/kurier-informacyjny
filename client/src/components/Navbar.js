@@ -2,17 +2,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-/* Heroicons */
-import { CogIcon, LogoutIcon } from "@heroicons/react/outline";
-
 /* Locally stored icons */
 import Logo from "../images/icons/Logo";
 import Menu from "../images/icons/Menu";
 
-/* Images */
-import UserIcon from "../images/UserIcon.png";
+/* Utils */
+import { getUser, removeUserSession } from "../utils/Common";
 
-function Navbar({ show, setShow, profile, setProfile, section, logged }) {
+function Navbar({ show, setShow, section, setUser }) {
+    var user = getUser();
+
     return (
         <nav className="w-full mx-auto bg-white shadow">
             <div className="container px-6 justify-between h-16 flex items-center lg:items-stretch mx-auto">
@@ -68,35 +67,19 @@ function Navbar({ show, setShow, profile, setProfile, section, logged }) {
                             <div
                                 aria-haspopup="true"
                                 className="cursor-pointer w-full flex items-center justify-end relative"
-                                onClick={() => setProfile(!profile)}
                             >
-                                {profile ? (
-                                    <ul className="p-2 w-40 border-r bg-white absolute rounded z-40 left-0 shadow mt-44 ">
-                                        <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
-                                            <CogIcon className="h-5 w-5" />
-                                            <span className="ml-2">
-                                                Ustawienia konta
-                                            </span>
-                                        </li>
-                                        <li className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none flex items-center">
-                                            <LogoutIcon className="h-5 w-5" />
-                                            <span className="ml-2">Logout</span>
-                                        </li>
-                                    </ul>
-                                ) : (
-                                    <></>
-                                )}
-                                {logged ? (
-                                    <>
-                                        <img
-                                            className="rounded h-10 w-10 object-cover"
-                                            src={UserIcon}
-                                            alt="logo"
-                                        />
-                                        <p className="text-gray-800 text-sm ml-2">
-                                            kulmisiu007@gmail.com
-                                        </p>
-                                    </>
+                                {user ? (
+                                    <a href="/">
+                                        <button
+                                            onClick={() => {
+                                                removeUserSession();
+                                                setUser(null);
+                                            }}
+                                            className="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 hover:bg-gray-100 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm"
+                                        >
+                                            Wyloguj się
+                                        </button>
+                                    </a>
                                 ) : (
                                     <>
                                         <Link to="/login/">

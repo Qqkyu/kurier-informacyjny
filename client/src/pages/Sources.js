@@ -1,5 +1,5 @@
 /* React */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 /* Components */
 import Sidebar from "../components/Sidebar";
@@ -9,7 +9,8 @@ import Source from "../components/Source";
 /* Miscellaneous */
 import SourcesContext from "../SourcesContext";
 
-function SourcesPage() {
+function SourcesPage({ setUser }) {
+    const { sources } = useContext(SourcesContext);
     const section = "sources";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
@@ -19,7 +20,12 @@ function SourcesPage() {
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} section={section} />
+                <Sidebar
+                    show={show}
+                    setShow={setShow}
+                    section={section}
+                    setUser={setUser}
+                />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
@@ -27,6 +33,7 @@ function SourcesPage() {
                     show={show}
                     setShow={setShow}
                     section={section}
+                    setUser={setUser}
                 />
                 {/* Navigation ends */}
                 <div className="text-gray-600 body-font">
@@ -51,18 +58,13 @@ function SourcesPage() {
                             </h1>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            <SourcesContext.Consumer>
-                                {(value) =>
-                                    Object.keys(value)
-                                        .filter(
-                                            (src) =>
-                                                value[src]["type"] === "Lewica"
-                                        )
-                                        .map((src) => (
-                                            <Source source={src} key={src} />
-                                        ))
-                                }
-                            </SourcesContext.Consumer>
+                            {Object.keys(sources)
+                                .filter(
+                                    (src) => sources[src]["type"] === "Lewica"
+                                )
+                                .map((src) => (
+                                    <Source source={src} key={src} />
+                                ))}
                         </div>
                         <div className="flex flex-col text-center w-full my-20">
                             <h1 className="sm:text-4xl text-3xl font-medium title-font mb-4 text-gray-900">
@@ -70,18 +72,13 @@ function SourcesPage() {
                             </h1>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            <SourcesContext.Consumer>
-                                {(value) =>
-                                    Object.keys(value)
-                                        .filter(
-                                            (src) =>
-                                                value[src]["type"] === "Centrum"
-                                        )
-                                        .map((src) => (
-                                            <Source source={src} key={src} />
-                                        ))
-                                }
-                            </SourcesContext.Consumer>
+                            {Object.keys(sources)
+                                .filter(
+                                    (src) => sources[src]["type"] === "Centrum"
+                                )
+                                .map((src) => (
+                                    <Source source={src} key={src} />
+                                ))}
                         </div>
                         <div className="flex flex-col text-center w-full my-20">
                             <h1 className="sm:text-4xl text-3xl font-medium title-font mb-4 text-gray-900">
@@ -89,18 +86,13 @@ function SourcesPage() {
                             </h1>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            <SourcesContext.Consumer>
-                                {(value) =>
-                                    Object.keys(value)
-                                        .filter(
-                                            (src) =>
-                                                value[src]["type"] === "Prawica"
-                                        )
-                                        .map((src) => (
-                                            <Source source={src} key={src} />
-                                        ))
-                                }
-                            </SourcesContext.Consumer>
+                            {Object.keys(sources)
+                                .filter(
+                                    (src) => sources[src]["type"] === "Prawica"
+                                )
+                                .map((src) => (
+                                    <Source source={src} key={src} />
+                                ))}
                         </div>
                     </div>
                 </div>

@@ -7,8 +7,13 @@ import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import List from "../components/List";
 
+/* Utils */
+import { getUser } from "../utils/Common";
+
 function IndexPage() {
     const section = "index";
+
+    const [user, setUser] = useState(getUser());
     const [value, setValue] = useState(50);
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
@@ -18,7 +23,12 @@ function IndexPage() {
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} section={section} />
+                <Sidebar
+                    show={show}
+                    setShow={setShow}
+                    section={section}
+                    setUser={setUser}
+                />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
@@ -26,7 +36,7 @@ function IndexPage() {
                     show={show}
                     setShow={setShow}
                     section={section}
-                    logged={false}
+                    setUser={setUser}
                 />
                 {/* Navigation ends */}
                 {/* Page title starts */}
@@ -44,6 +54,7 @@ function IndexPage() {
                                     ? "Centrum"
                                     : "Prawica"
                             }
+                            setUser={setUser}
                         />
                     </div>
                 </div>

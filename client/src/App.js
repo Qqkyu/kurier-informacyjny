@@ -9,24 +9,29 @@ import SourcesPage from "./pages/Sources";
 import LoginPage from "./pages/Login";
 import IndexPage from "./pages/Index";
 
+/* Material UI */
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 /* Miscellaneous */
 import SourcesContext from "./SourcesContext";
 import axios from "axios";
 
 function App() {
     const [sources, setSources] = useState();
+    const setContextSources = (newSources) => {
+        setSources(newSources);
+    };
 
     useEffect(() => {
         axios
             .get("http://localhost:5000/sources", { crossdomain: true })
             .then((response) => {
-                console.log(response.data);
                 setSources(response.data);
             });
     }, []);
 
-    return (
-        <SourcesContext.Provider value={sources}>
+    return sources ? (
+        <SourcesContext.Provider value={{ sources, setContextSources }}>
             <Router>
                 <Switch>
                     <Route path="/register/">
@@ -47,6 +52,10 @@ function App() {
                 </Switch>
             </Router>
         </SourcesContext.Provider>
+    ) : (
+        <div className="h-screen flex justify-center items-center bg-gray-200">
+            <CircularProgress />
+        </div>
     );
 }
 
