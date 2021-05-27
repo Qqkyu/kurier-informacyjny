@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "devStart": "nodemon server.js",
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "start": "node server.js"
     },
     "dependencies": {
         "bcrypt": "^5.0.1",

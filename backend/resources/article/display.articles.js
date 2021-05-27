@@ -47,7 +47,7 @@ export const getArticles = async (req, res) => {
     }
 };
 
-export const mapSources = async (req, res) => {
+export const getSources = async (req, res) => {
     try {
         var sources = await Source.find({});
         sources = sources.reduce((acc, src) => {
