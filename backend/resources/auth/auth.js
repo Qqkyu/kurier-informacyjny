@@ -1,7 +1,9 @@
 import bcrypt from "bcrypt";
 import User from "../user/user.model.js";
-import jwt from "jsonwebtoken";
-import refreshTokens from "./token.model.js";
+import {
+    generateAccessToken,
+    deleteRefreshToken,
+} from "./token.controllers.js";
 
 export const createPassword = async (password) => {
     const salt = await bcrypt.genSalt();
@@ -25,12 +27,6 @@ export const signup = async (req, res) => {
     }
 };
 
-const generateAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "10m",
-    });
-};
-
 export const login = async (req, res) => {
     try {
         const email = req.body.email;
@@ -47,7 +43,7 @@ export const login = async (req, res) => {
             { $push: { tokens: refreshToken } }
         );
         res.status(200).send({
-            accessToken: accessToken,
+            token: accessToken,
             email: user.email,
             refreshToken: refreshToken,
         });
@@ -57,40 +53,9 @@ export const login = async (req, res) => {
     }
 };
 
-export const isTokenValid = async (token) => {
-    return (
-        await refreshTokens.findOne({}, { _id: 0, tokens: 1 })
-    ).tokens.includes(refreshToken);
-};
-
-export const token = async (req, res) => {
-    const refreshToken = req.body.token;
-    if (refreshToken == null) return res.sendStatus(401);
-    if (!isTokenValid(refreshToken)) return res.sendStatus(403);
-
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        const accessToken = generateAccessToken({ email: user.email });
-        res.json({ accessToken: accessToken });
-    });
-};
-
-export const verifyToken = (req, res, next) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    if (token == null) return res.sendStatus(401);
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
-};
-
 export const logout = async (req, res) => {
-    await refreshTokens.findOneAndUpdate(
-        {},
-        { $pull: { tokens: req.body.token } }
-    );
-    res.status(204).send();
+    if (await deleteRefreshToken(req.body.token)) {
+        res.status(200).send();
+    }
+    res.status(404).send();
 };
