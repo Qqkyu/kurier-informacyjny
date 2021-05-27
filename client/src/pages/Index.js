@@ -12,6 +12,7 @@ import { getUser } from "../utils/Common";
 
 function IndexPage() {
     const section = "index";
+
     const [user, setUser] = useState(getUser());
     const [value, setValue] = useState(50);
     const [show, setShow] = useState(false);

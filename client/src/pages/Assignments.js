@@ -1,5 +1,5 @@
 /* React */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 
 /* Components */
@@ -12,6 +12,7 @@ import SourcesContext from "../SourcesContext";
 import { getUser } from "../utils/Common";
 
 function AssignmentsPage({ setUser }) {
+    const { sources } = useContext(SourcesContext);
     const section = "assignments";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
@@ -53,13 +54,9 @@ function AssignmentsPage({ setUser }) {
                             </p>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            <SourcesContext.Consumer>
-                                {(value) =>
-                                    Object.keys(value).map((src) => (
-                                        <Source source={src} key={src} />
-                                    ))
-                                }
-                            </SourcesContext.Consumer>
+                            {Object.keys(sources).map((src) => (
+                                <Source source={src} key={src} />
+                            ))}
                         </div>
                     </div>
                 </div>

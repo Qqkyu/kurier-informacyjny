@@ -18,18 +18,20 @@ import axios from "axios";
 
 function App() {
     const [sources, setSources] = useState();
+    const setContextSources = (newSources) => {
+        setSources(newSources);
+    };
 
     useEffect(() => {
         axios
             .get("http://localhost:5000/sources", { crossdomain: true })
             .then((response) => {
-                console.log(response.data);
                 setSources(response.data);
             });
     }, []);
 
     return sources ? (
-        <SourcesContext.Provider value={sources}>
+        <SourcesContext.Provider value={{ sources, setContextSources }}>
             <Router>
                 <Switch>
                     <Route path="/register/">
