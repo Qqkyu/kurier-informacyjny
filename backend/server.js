@@ -4,13 +4,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import userRouter from "./resources/user/user.router.js";
+import { signup, login, logout } from "./resources/auth/auth.js";
 import {
-    signup,
-    login,
+    getNewToken,
     verifyToken,
-    logout,
-    token,
-} from "./resources/auth/auth.js";
+} from "./resources/auth/token.controllers.js";
 import {
     getArticles,
     mapSources,
@@ -25,7 +23,7 @@ app.use(express.static("public"));
 app.post("/signup", signup);
 app.post("/login", login);
 app.delete("/logout", logout);
-app.get("/token", token);
+app.get("/token", getNewToken);
 app.get("/articles", getArticles);
 app.get("/sources", mapSources);
 
@@ -38,9 +36,7 @@ const start = async () => {
     try {
         await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
         app.listen(process.env.PORT, () => {
-            console.log(
-                `API listening on http://localhost:${process.env.PORT}/'`
-            );
+            console.log("API listening");
         });
     } catch (e) {
         console.error(e);

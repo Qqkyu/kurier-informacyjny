@@ -40,7 +40,7 @@ export const getArticles = async (req, res) => {
                             : "Prawica",
                 };
                 acc[src["name"]] = mappedSrc;
-                return acc;
+                return sources;
             }, {});
 
             res.status(200).send(r);
