@@ -18,7 +18,7 @@ export const signup = async (req, res) => {
             email: email,
             password: hashedPassword,
         });
-        res.status(200).send({ hashedPassword: hashedPassword });
+        res.status(200).send();
     } catch (e) {
         console.log(e);
         res.status(404).send(e);

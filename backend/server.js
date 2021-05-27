@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-//import morgan from "morgan";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
@@ -12,7 +11,6 @@ import {
 } from "./resources/article/display.articles.js";
 var app = express();
 
-//app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -25,7 +23,7 @@ app.get("/token", token);
 app.get("/articles", getArticles);
 app.get("/sources", mapSources);
 
-//app.use(verifyToken);
+app.use(verifyToken);
 app.use("/user", userRouter);
 
 dotenv.config();
