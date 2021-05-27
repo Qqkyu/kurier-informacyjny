@@ -4,6 +4,7 @@ import {
     generateAccessToken,
     deleteRefreshToken,
 } from "./token.controllers.js";
+import jwt from "jsonwebtoken";
 
 export const createPassword = async (password) => {
     const salt = await bcrypt.genSalt();
