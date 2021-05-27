@@ -26,7 +26,10 @@ function LoginPage() {
                 .post("http://localhost:5000/login", payload)
                 .then(function (response) {
                     if (response.status === 200) {
-                        setUserSession(response.data.token, response.data.user);
+                        setUserSession(
+                            response.data.token,
+                            response.data.email
+                        );
                     }
                 });
         }
