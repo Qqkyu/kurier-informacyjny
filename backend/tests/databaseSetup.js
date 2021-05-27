@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { deleteUser } from "../resources/user/user.controllers.js";
-import { signup } from "../resources/auth.js";
+import { signup } from "../resources/auth/auth.js";
 export const connectDatabase = async () => {
     dotenv.config();
     await mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
