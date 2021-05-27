@@ -38,7 +38,7 @@ function AssignmentsPage() {
                                 Zalogowani użytkownicy mają możliwość
                                 modyfikacji domyślnych przypisań w dowolny
                                 sposób, wystarczy wybrać jedną z trzech
-                                dostępnych poniżej opcji a dane kategoria danego
+                                dostępnych poniżej opcji a kategoria danego
                                 źródła zostanie automatycznie zaktualizowana.
                             </p>
                         </div>

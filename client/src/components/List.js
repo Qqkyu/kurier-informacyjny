@@ -61,7 +61,7 @@ function getArticlesArray(articles, type) {
             });
         }
     }
-    return articlesArray;
+    return articlesArray.sort(() => Math.random() - 0.5);
 }
 
 export default Index;
