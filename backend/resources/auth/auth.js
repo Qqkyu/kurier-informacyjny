@@ -44,11 +44,13 @@ export const login = async (req, res) => {
             {},
             { $push: { tokens: refreshToken } }
         );
-        res.status(200).send({
-            token: accessToken,
-            email: user.email,
-            refreshToken: refreshToken,
-        });
+        res.status(200).send(
+            JSON.stringify({
+                token: accessToken,
+                email: user.email,
+                refreshToken: refreshToken,
+            })
+        );
     } catch (e) {
         console.log(e);
         res.status(500).send();
