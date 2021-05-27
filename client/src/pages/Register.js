@@ -9,7 +9,7 @@ import axios from "axios";
 import Logo from "../images/icons/Logo";
 
 /* Utils */
-import { setUserSession } from "../utils/Common";
+import { getUser, setUserSession } from "../utils/Common";
 
 function RegisterPage() {
     const [email, setEmail] = useState("");
@@ -25,22 +25,16 @@ function RegisterPage() {
             axios
                 .post("http://localhost:5000/signup", payload)
                 .then(function (response) {
+                    console.log(response);
                     if (response.status === 200) {
-                        axios
-                            .post("http://localhost:5000/login", payload)
-                            .then(function (response) {
-                                if (response.status === 200) {
-                                    setUserSession(
-                                        response.data.token,
-                                        response.data.email
-                                    );
-                                }
-                            });
+                        console.log(response.email, response.token);
+                        axios.post("http://localhost:5000/login", payload);
                         setUserSession(
                             response.data.token,
                             response.data.email
                         );
                     }
+                    console.log(getUser());
                 });
         }
     };
@@ -80,7 +74,7 @@ function RegisterPage() {
                                 Email
                             </label>
                             <input
-                                autofocus
+                                autoFocus
                                 required
                                 id="email"
                                 name="email"
