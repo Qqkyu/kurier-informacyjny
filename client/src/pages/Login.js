@@ -1,6 +1,6 @@
 /* React */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 /* Locally stored icons */
 import Logo from "../images/icons/Logo";
@@ -12,6 +12,7 @@ import axios from "axios";
 import { setUserSession } from "../utils/Common";
 
 function LoginPage() {
+    const [redirect, setRedirect] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -30,16 +31,22 @@ function LoginPage() {
                             response.data.token,
                             response.data.email
                         );
+                        setRedirect(true);
                     }
+                })
+                .catch(() => {
+                    alert("Nieprawidłowy login lub hasło");
                 });
         }
     };
 
-    return (
+    return redirect ? (
+        <Redirect to="/" />
+    ) : (
         <section className="bg-white {-- h-screen --}">
             <div className="mx-auto flex justify-center h-full flex-col lg:flex-row">
                 <form
-                    onsubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                     className="w-full lg:w-1/2 flex justify-center bg-white dark:bg-gray-900"
                 >
                     <div className="w-full sm:w-4/6 md:w-3/6 lg:w-2/3 text-gray-800 dark:text-gray-100 mb-12 sm:mb-0 flex flex-col justify-center px-2 sm:px-0">

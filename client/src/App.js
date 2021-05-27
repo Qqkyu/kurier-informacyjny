@@ -9,6 +9,9 @@ import SourcesPage from "./pages/Sources";
 import LoginPage from "./pages/Login";
 import IndexPage from "./pages/Index";
 
+/* Material UI */
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 /* Miscellaneous */
 import SourcesContext from "./SourcesContext";
 import axios from "axios";
@@ -25,7 +28,7 @@ function App() {
             });
     }, []);
 
-    return (
+    return sources ? (
         <SourcesContext.Provider value={sources}>
             <Router>
                 <Switch>
@@ -47,6 +50,10 @@ function App() {
                 </Switch>
             </Router>
         </SourcesContext.Provider>
+    ) : (
+        <div className="h-screen flex justify-center items-center bg-gray-200">
+            <CircularProgress />
+        </div>
     );
 }
 

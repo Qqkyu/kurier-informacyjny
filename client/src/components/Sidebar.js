@@ -9,10 +9,12 @@ import { HomeIcon, CogIcon, CollectionIcon } from "@heroicons/react/outline";
 import CrossIcon from "../images/icons/Cross";
 import Logo from "../images/icons/Logo";
 
-/* Images */
-import UserIcon from "../images/UserIcon.png";
+/* Utils */
+import { getUser, removeUserSession } from "../utils/Common";
 
-function Sidebar({ show, setShow, section }) {
+function Sidebar({ show, setShow, section, setUser }) {
+    const user = getUser();
+
     return (
         <div
             className={
@@ -130,15 +132,39 @@ function Sidebar({ show, setShow, section }) {
                     <div className="w-full">
                         <div className="border-t border-gray-300">
                             <div className="w-full flex items-center justify-between px-6 pt-1">
-                                <div className="flex items-center">
-                                    <img
-                                        alt="profile-pic"
-                                        src={UserIcon}
-                                        className="w-8 h-8 rounded-md"
-                                    />
-                                    <p className=" text-gray-800 text-base leading-4 ml-2">
-                                        kulmisiu007@gmail.com
-                                    </p>
+                                <div className="flex flex-wrap justify-center items-center">
+                                    {user ? (
+                                        <a href="/">
+                                            <button
+                                                onClick={() => {
+                                                    removeUserSession();
+                                                    setUser(null);
+                                                }}
+                                                className="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 hover:bg-gray-100 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm"
+                                            >
+                                                Wyloguj się
+                                            </button>
+                                        </a>
+                                    ) : (
+                                        <>
+                                            <Link
+                                                to="/login/"
+                                                state={{ setUser }}
+                                            >
+                                                <button className="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:border-indigo-600 hover:text-indigo-600 hover:bg-gray-100 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm">
+                                                    Logowanie
+                                                </button>
+                                            </Link>
+                                            <Link
+                                                to="/register/"
+                                                state={{ setUser }}
+                                            >
+                                                <button className="mx-2 my-2 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-6 py-2 text-sm">
+                                                    Rejestracja
+                                                </button>
+                                            </Link>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

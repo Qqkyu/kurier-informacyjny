@@ -1,5 +1,6 @@
 /* React */
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 /* Components */
 import Sidebar from "../components/Sidebar";
@@ -8,18 +9,26 @@ import Navbar from "../components/Navbar";
 
 /* Miscellaneous */
 import SourcesContext from "../SourcesContext";
+import { getUser } from "../utils/Common";
 
-function AssignmentsPage() {
+function AssignmentsPage({ setUser }) {
     const section = "assignments";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
 
-    return (
+    return getUser() == null ? (
+        <Redirect to="/login/" />
+    ) : (
         <>
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} section={section} />
+                <Sidebar
+                    show={show}
+                    setShow={setShow}
+                    section={section}
+                    setUser={setUser}
+                />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
@@ -27,6 +36,7 @@ function AssignmentsPage() {
                     show={show}
                     setShow={setShow}
                     section={section}
+                    setUser={setUser}
                 />
                 <div className="text-gray-600 body-font">
                     <div className="container px-5 py-24 mx-auto ">

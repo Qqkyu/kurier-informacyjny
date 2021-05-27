@@ -9,7 +9,7 @@ import Source from "../components/Source";
 /* Miscellaneous */
 import SourcesContext from "../SourcesContext";
 
-function SourcesPage() {
+function SourcesPage({ setUser }) {
     const section = "sources";
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
@@ -19,7 +19,12 @@ function SourcesPage() {
             <div className="absolute bg-gray-200 w-full">
                 {/* Navigation starts */}
                 {/* Mobile */}
-                <Sidebar show={show} setShow={setShow} section={section} />
+                <Sidebar
+                    show={show}
+                    setShow={setShow}
+                    section={section}
+                    setUser={setUser}
+                />
                 {/* Mobile */}
                 <Navbar
                     profile={profile}
@@ -27,6 +32,7 @@ function SourcesPage() {
                     show={show}
                     setShow={setShow}
                     section={section}
+                    setUser={setUser}
                 />
                 {/* Navigation ends */}
                 <div className="text-gray-600 body-font">
