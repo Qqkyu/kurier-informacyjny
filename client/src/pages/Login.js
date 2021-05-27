@@ -96,19 +96,6 @@ function LoginPage() {
                                 />
                             </div>
                         </div>
-                        <div className="pt-6 w-full flex justify-between px-2 sm:px-6">
-                            <div className="flex items-center">
-                                <input
-                                    id="rememberme"
-                                    name="rememberme"
-                                    className="w-3 h-3 mr-2"
-                                    type="checkbox"
-                                />
-                                <label htmlFor="rememberme" className="text-xs">
-                                    Zapamiętaj mnie
-                                </label>
-                            </div>
-                        </div>
                         <div className="px-2 sm:mb-16 sm:px-6">
                             <button
                                 type="submit"
