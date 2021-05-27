@@ -1,5 +1,5 @@
 import User from "./user.model.js";
-import { createPassword } from "../auth.js";
+import { createPassword } from "../auth/auth.js";
 
 export const changeAssignment = async (req, res) => {
     if (!req.body.email) res.status(400).send();
