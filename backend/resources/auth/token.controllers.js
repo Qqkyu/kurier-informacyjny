@@ -39,12 +39,10 @@ export const verifyToken = (req, res, next) => {
 
 export const deleteRefreshToken = async (token) => {
     try {
-        await refreshTokens.findOneAndUpdate(
-            {},
-            { $pull: { tokens: req.body.token } }
-        );
+        await refreshTokens.findOneAndUpdate({}, { $pull: { tokens: token } });
         return true;
     } catch (e) {
+        console.log(e);
         return false;
     }
 };

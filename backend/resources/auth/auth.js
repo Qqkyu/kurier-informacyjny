@@ -44,7 +44,7 @@ export const login = async (req, res) => {
             {},
             { $push: { tokens: refreshToken } }
         );
-        res.status(200).json({
+        res.status(200).send({
             token: accessToken,
             email: user.email,
             refreshToken: refreshToken,
@@ -56,8 +56,14 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-    if (await deleteRefreshToken(req.body.token)) {
-        res.status(200).send();
+    try {
+        var results = await deleteRefreshToken(req.body.token);
+        console.log(results);
+        if (results) {
+            res.status(200).send();
+        }
+    } catch (e) {
+        console.log(e);
+        res.status(404).send();
     }
-    res.status(404).send();
 };
