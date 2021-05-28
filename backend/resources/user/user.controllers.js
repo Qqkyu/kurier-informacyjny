@@ -1,6 +1,11 @@
 import User from "./user.model.js";
 import { createPassword } from "../auth/auth.js";
 
+/**
+ * @param {Object} req - contains user's email, the id of the source that should be updated and the id
+ * of the category that the source should be assigned to
+ * @res {Object}
+ */
 export const changeAssignment = async (req, res) => {
     if (!req.body.email) res.status(400).send();
     try {
@@ -25,10 +30,16 @@ export const changeAssignment = async (req, res) => {
     }
 };
 
+/**
+ * @param {String} email
+ */
 export const findUser = async (email) => {
     return await User.findOne({ email: email });
 };
 
+/**
+ * @param {String} email
+ */
 export const deleteUser = async (email) => {
     try {
         await User.findOneAndRemove({ email: email });
@@ -38,6 +49,9 @@ export const deleteUser = async (email) => {
     }
 };
 
+/**
+ * @param {String} email
+ */
 export const updatePassword = async (email) => {
     try {
         await User.updateOne({ email: email });
@@ -47,6 +61,10 @@ export const updatePassword = async (email) => {
     }
 };
 
+/**
+ * @param {String} email
+ * @param {String} password
+ */
 export const resetPassword = async (email, password) => {
     try {
         await User.updateOne(

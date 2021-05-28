@@ -5,6 +5,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+/**
+ * @param {Object} req - request body should contain category_id and source_id, optionally user's email
+ * @param {Object} res - object that articles are written to
+ */
 export const getArticles = async (req, res) => {
     var sources;
     if (!req.body.email) {
@@ -25,55 +29,9 @@ export const getArticles = async (req, res) => {
                 },
             });
 
-            var r = sources.reduce((acc, src) => {
-                var mappedSrc = {
-                    logo: `http://localhost:${process.env.DB_URI}/sources/${src[_id]}.png`,
-                    articles: src["articles"],
-                    link: src["link"],
-                    name: src["name"],
-                    description: src["description"],
-                    type:
-                        src["defaultAssignment"] == 0
-                            ? "Lewica"
-                            : src["defaultAssignment"] == 1
-                            ? "Centrum"
-                            : "Prawica",
-                };
-                acc[src["name"]] = mappedSrc;
-                return sources;
-            }, {});
-
-            res.status(200).send(r);
+            res.status(200).send(sources);
         } catch (e) {
             res.status(400).send();
         }
-    }
-};
-
-export const mapSources = async (req, res) => {
-    try {
-        var sources = await Source.find({});
-        sources = sources.reduce((acc, src) => {
-            var mappedSrc = {
-                logo: `http://localhost:${process.env.PORT}/sources/${src["_id"]}.png`,
-                id: src["_id"],
-                articles: src["articles"],
-                link: src["link"],
-                name: src["name"],
-                description: src["description"],
-                type:
-                    src["defaultAssignment"] == 0
-                        ? "Lewica"
-                        : src["defaultAssignment"] == 1
-                        ? "Centrum"
-                        : "Prawica",
-            };
-            acc[src["name"]] = mappedSrc;
-            return acc;
-        }, {});
-        res.status(200).send(sources);
-    } catch (e) {
-        console.log(e);
-        res.status(400).send();
     }
 };

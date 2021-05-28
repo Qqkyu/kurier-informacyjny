@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+
+// file implements id autoincrement function in the mongodb database
+
 const CounterSchema = new mongoose.Schema({
     seq: { type: Number, default: 0 },
 });
