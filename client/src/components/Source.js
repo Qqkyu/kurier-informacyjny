@@ -4,6 +4,10 @@ import React, { useContext } from "react";
 /* Miscellaneous */
 import SourcesContext from "../SourcesContext";
 
+/**
+ *
+ * @param {string} source
+ */
 function Source({ source }) {
     const { sources } = useContext(SourcesContext);
 

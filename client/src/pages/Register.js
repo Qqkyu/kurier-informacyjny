@@ -27,6 +27,7 @@ function RegisterPage() {
                 .post("http://localhost:5000/signup", payload)
                 .then(function (response) {
                     if (response.status === 200) {
+                        /* Successful request - login user and set user data */
                         axios.post("http://localhost:5000/login", payload);
                         setUserSession(
                             response.data.token,
@@ -41,6 +42,7 @@ function RegisterPage() {
         }
     };
 
+    /* If user registered, they get redirected to the main page */
     return redirect ? (
         <Redirect to="/" />
     ) : (

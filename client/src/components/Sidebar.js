@@ -12,7 +12,15 @@ import Logo from "../images/icons/Logo";
 /* Utils */
 import { getUser, removeUserSession } from "../utils/Common";
 
+/**
+ *
+ * @param {boolean} show
+ * @param {function} setShow
+ * @param {string} section
+ * @param {function} setUser
+ */
 function Sidebar({ show, setShow, section, setUser }) {
+    /* Get currently logged-in user email (null if user is not logged-in) */
     const user = getUser();
 
     return (

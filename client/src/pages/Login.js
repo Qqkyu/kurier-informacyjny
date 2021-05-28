@@ -13,6 +13,7 @@ import { setUserSession } from "../utils/Common";
 
 function LoginPage() {
     const [redirect, setRedirect] = useState(false);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -27,6 +28,7 @@ function LoginPage() {
                 .post("http://localhost:5000/login", payload)
                 .then(function (response) {
                     if (response.status === 200) {
+                        /* Successful request - set user data */
                         setUserSession(
                             response.data.token,
                             response.data.email
@@ -40,6 +42,7 @@ function LoginPage() {
         }
     };
 
+    /* If user logged-in, they get redirected to the main page */
     return redirect ? (
         <Redirect to="/" />
     ) : (

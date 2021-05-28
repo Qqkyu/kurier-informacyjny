@@ -1,9 +1,17 @@
+/* React */
 import React, { useContext } from "react";
 
 /* Miscellaneous */
 import Article from "./Article";
 import SourcesContext from "../SourcesContext";
 
+/* Utils */
+import { getArticlesArray } from "../utils/Articles";
+
+/**
+ *
+ * @param {string} type - "Lewica", "Centrum" or "Prawica"
+ */
 function Index({ type }) {
     const { sources } = useContext(SourcesContext);
 
@@ -43,23 +51,6 @@ function Index({ type }) {
             })}
         </div>
     );
-}
-
-function getArticlesArray(articles, type) {
-    var articlesArray = [];
-    for (const source in articles) {
-        if (articles[source]["type"] === type) {
-            articles[source]["articles"].forEach((article) => {
-                const articleObject = {
-                    name: articles[source]["name"],
-                    link: article["link"],
-                    title: article["title"],
-                };
-                articlesArray.push(articleObject);
-            });
-        }
-    }
-    return articlesArray.sort(() => Math.random() - 0.5);
 }
 
 export default Index;

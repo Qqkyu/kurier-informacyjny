@@ -14,7 +14,10 @@ function IndexPage() {
     const section = "index";
 
     const [, setUser] = useState(getUser());
+
+    /* Slider value, default is "Centrum" hence 50 */
     const [value, setValue] = useState(50);
+
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
 

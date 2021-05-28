@@ -22,10 +22,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+/**
+ *
+ * @param {string} source
+ */
 function Source({ source }) {
     const { sources, setContextSources } = useContext(SourcesContext);
-    const [snackPack, setSnackPack] = React.useState([]);
+
     const [open, setOpen] = React.useState(false);
+    const [snackPack, setSnackPack] = React.useState([]);
     const [messageInfo, setMessageInfo] = React.useState(undefined);
 
     React.useEffect(() => {
@@ -40,11 +45,16 @@ function Source({ source }) {
         }
     }, [snackPack, messageInfo, open]);
 
+    /* Handle request to change assignment */
     const handleClick = (message, newType) => () => {
+        /* Save current sources state */
         var curSources = sources;
+
         if (curSources[source]["type"] === newType) {
+            /* If new type is the same as old one, don't change anything and inform user */
             message = `Źródło "${sources[source]["name"]}" jest już przypisane do kategorii ${newType}`;
         } else {
+            /* New type is different than old one, make request to backend to change assignment */
             axios
                 .put(
                     "http://localhost:5000/user/change_assignment",
@@ -56,6 +66,7 @@ function Source({ source }) {
                                 : newType === "Centrum"
                                 ? 1
                                 : 2,
+                        source_id: sources[source]["id"],
                     },
                     {
                         headers: {
@@ -64,12 +75,14 @@ function Source({ source }) {
                     }
                 )
                 .then(function (response) {
+                    /* Change assignment only if request was successful */
                     if (response.status === 200) {
                         curSources[source]["type"] = newType;
                         setContextSources(curSources);
                     }
                 })
                 .catch(() => {
+                    /* Request failed - inform user */
                     message = `Nie udało się przypisać źródła "${sources[source]["name"]}" do kategorii ${newType}`;
                 });
         }
