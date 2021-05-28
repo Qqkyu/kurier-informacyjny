@@ -32,10 +32,10 @@ const isTokenValid = async (token) => {
 export const getNewToken = async (req, res) => {
     const refreshToken = req.body.token;
     if (refreshToken == null) return res.sendStatus(401);
-    if (!isTokenValid(refreshToken)) return res.sendStatus(403);
+    if (!isTokenValid(refreshToken)) return res.status(403).send("here");
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
+        if (err) return res.status(403).send(err);
         const accessToken = generateAccessToken({ email: user.email });
         res.json({ accessToken: accessToken });
     });
@@ -57,7 +57,7 @@ export const verifyToken = (req, res, next) => {
     if (token == null) return res.sendStatus(401);
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
+        if (err) return res.status(403).send(err);
         req.user = user;
         next();
     });

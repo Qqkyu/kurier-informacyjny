@@ -21,10 +21,10 @@ app.post("/login", login); // {body: {"email": <email_address>, "password": <pas
 app.delete("/logout", logout); // {body: {"token": <refreshToken>}}
 app.get("/token", getNewToken); // {body: {"token": <refreshToken>}}
 app.get("/articles", getArticles); // {body: {"category_id": <0, 1 or 2>}}
-app.get("/sources", sourceRouter); // {}
+app.use("/sources", sourceRouter); // {}
 
-app.use(verifyToken); // verifyToken function is used before giving access to user's data
-app.use("/user", userRouter);
+//app.use(verifyToken); // verifyToken function is used before giving access to user's data
+app.use("/user", verifyToken, userRouter);
 
 dotenv.config();
 
