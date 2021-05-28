@@ -15,7 +15,7 @@ export const getSourcesNames = async (category_id) => {
 };
 
 export const removeSource = async (sourceName) => {
-    return await Source.findOneAndDelete({
+    await Source.findOneAndDelete({
         name: sourceName,
     });
 };
@@ -44,7 +44,6 @@ export const changeSourceName = async (oldName, newName) => {
         await Source.updateOne({ name: oldName }, { $set: { name: newName } });
         return true;
     } catch (e) {
-        console.log(e);
         return false;
     }
 };
