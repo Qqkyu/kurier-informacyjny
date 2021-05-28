@@ -11,12 +11,18 @@ import Navbar from "../components/Navbar";
 import SourcesContext from "../SourcesContext";
 import { getUser } from "../utils/Common";
 
+/**
+ * @param {function} setUser
+ */
 function AssignmentsPage({ setUser }) {
-    const { sources } = useContext(SourcesContext);
     const section = "assignments";
+
+    const { sources } = useContext(SourcesContext);
+
     const [show, setShow] = useState(false);
     const [profile, setProfile] = useState(false);
 
+    /* Assignments page is only available to logged-in users */
     return getUser() == null ? (
         <Redirect to="/login/" />
     ) : (
@@ -54,9 +60,12 @@ function AssignmentsPage({ setUser }) {
                             </p>
                         </div>
                         <div className="flex flex-wrap -m-4">
-                            {Object.keys(sources).map((src) => (
-                                <Source source={src} key={src} />
-                            ))}
+                            {
+                                /* Map array of sources' into Source components */
+                                Object.keys(sources).map((src) => (
+                                    <Source source={src} key={src} />
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

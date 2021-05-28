@@ -1,4 +1,7 @@
+/* React */
 import React from "react";
+
+/* Material UI */
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 
@@ -30,6 +33,10 @@ function valuetext(value) {
     }
 }
 
+/**
+ *
+ * @param {function} setValue
+ */
 function BeliefsSlider({ setValue }) {
     return (
         <div className="w-full">

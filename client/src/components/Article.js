@@ -14,11 +14,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Article({ source, title, position, link, sourceLink }) {
+/**
+ *
+ * @param {string} source
+ * @param {string} title
+ * @param {string} link
+ * @param {string} sourceLink
+ */
+function Article({ source, title, link, sourceLink }) {
     const { sources } = useContext(SourcesContext);
 
     const classes = useStyles();
 
+    /* Return article only if sources object is already set */
     return sources ? (
         <div className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded">
             <a href={sourceLink} target="_blank" rel="noreferrer">
