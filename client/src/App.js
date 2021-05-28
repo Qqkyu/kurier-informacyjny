@@ -17,7 +17,7 @@ import SourcesContext from "./SourcesContext";
 import axios from "axios";
 
 function App() {
-    const [sources, setSources] = useState();
+    const [sources, setSources] = useState(true);
     const setContextSources = (newSources) => {
         setSources(newSources);
     };
@@ -27,6 +27,9 @@ function App() {
             .get("http://localhost:5000/sources", { crossdomain: true })
             .then((response) => {
                 setSources(response.data);
+            })
+            .catch((response) => {
+                console.log(response.data);
             });
     }, []);
 
