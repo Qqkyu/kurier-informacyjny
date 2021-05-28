@@ -4,20 +4,20 @@ import {
     createExampleUser,
     deleteExampleUser,
 } from "../../databaseSetup.js";
-import { login, logout } from "../../../resources/auth.js";
+import { login, logout } from "../../../resources/auth/auth.js";
 
 describe("logout", () => {
-    beforeEach(async () => {
+    beforeAll(async () => {
         await connectDatabase();
-        await createExampleUser();
+        await createExampleUser("kkk@gmail.com");
     });
 
-    afterEach(async () => {
-        await deleteExampleUser();
+    afterAll(async () => {
+        await deleteExampleUser("kkk@gmail.com");
         await closeDatabaseConnection();
     });
 
-    test('should log out "example@gmail.com" account', async () => {
+    test('should log out "kkk@gmail.com" account', async () => {
         expect.assertions(2);
         var user = {};
         var user = {
@@ -29,7 +29,7 @@ describe("logout", () => {
         };
         await login(
             {
-                body: { email: "example@gmail.com", password: "passwd" },
+                body: { email: "kkk@gmail.com", password: "passwd" },
             },
             user
         );
@@ -38,7 +38,7 @@ describe("logout", () => {
         };
         const res = {
             status(status) {
-                expect(status).toBe(204);
+                expect(status).toBe(200);
                 return this;
             },
             send(result) {},

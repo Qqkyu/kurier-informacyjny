@@ -13,36 +13,36 @@ import {
 describe("Delete, update, findUser tests", () => {
     beforeAll(async () => {
         await connectDatabase();
-        await createExampleUser();
+        await createExampleUser("xxx@gmail.com");
     });
 
     afterAll(async () => {
-        await deleteExampleUser();
+        await deleteExampleUser("xxx@gmail.com");
         await closeDatabaseConnection();
     });
 
     describe("findUser", () => {
-        test('should find a user with "example@gmail.com" mail', async () => {
+        test('should find a user with "xxx@gmail.com" mail', async () => {
             expect.assertions(1);
-            const user = await findUser("example@gmail.com");
+            const user = await findUser("xxx@gmail.com");
             expect(user).not.toBeNull();
         });
     });
 
     describe("updatePassword", () => {
-        test("should update 'example@gmail.com' account's password", async () => {
+        test("should update 'xxx@gmail.com' account's password", async () => {
             expect.assertions(1);
             await expect(
-                await resetPassword("example@gmail.com", "password123")
+                await resetPassword("xxx@gmail.com", "password123")
             ).toBe(true);
         });
     });
 
     describe("deleteUser", () => {
-        test('should delete user with "example@gmail.com" mail', async () => {
+        test('should delete user with "xxx@gmail.com" mail', async () => {
             expect.assertions(1);
-            await deleteUser("example@gmail.com");
-            const deletedUser = await findUser("example@gmail.com");
+            await deleteUser("xxx@gmail.com");
+            const deletedUser = await findUser("xxx@gmail.com");
             expect(deletedUser).toBeNull();
         });
     });

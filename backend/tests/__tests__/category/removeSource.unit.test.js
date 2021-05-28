@@ -15,8 +15,10 @@ describe("removeSource", () => {
     });
 
     afterAll(async () => {
+        await removeSource("xyz");
         await closeDatabaseConnection();
     });
+
     test("should remove 'xyz' source", async () => {
         expect.assertions(1);
         await removeSource("xyz");

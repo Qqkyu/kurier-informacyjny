@@ -4,22 +4,24 @@ import {
     createExampleUser,
     deleteExampleUser,
 } from "../../databaseSetup.js";
-import { login } from "../../../resources/auth.js";
+import { login } from "../../../resources/auth/auth.js";
+
 describe("login", () => {
     beforeEach(async () => {
         await connectDatabase();
-        await createExampleUser();
+        await deleteExampleUser("e@gmail.com");
+        await createExampleUser("e@gmail.com");
     });
 
     afterEach(async () => {
-        await deleteExampleUser();
+        await deleteExampleUser("e@gmail.com");
         await closeDatabaseConnection();
     });
 
-    test('should log in "example@gmail.com" account', async () => {
+    test('should log in "e@gmail.com" account', async () => {
         expect.assertions(2);
         const req = {
-            body: { email: "example@gmail.com", password: "passwd" },
+            body: { email: "e@gmail.com", password: "passwd" },
         };
         const res = {
             status(status) {
@@ -27,7 +29,7 @@ describe("login", () => {
                 return this;
             },
             send(result) {
-                expect(result.accessToken).toEqual(expect.anything());
+                expect(result.token).toEqual(expect.anything());
             },
         };
         await login(req, res);

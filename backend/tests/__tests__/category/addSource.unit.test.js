@@ -14,12 +14,13 @@ describe("addSource", () => {
     });
 
     afterAll(async () => {
-        await removeSource("xyz");
+        await removeSource("qwe");
         await closeDatabaseConnection();
     });
 
-    test("should add 'xyz' as a source", async () => {
-        await addSource("xyz", "https://www.example.pl/", 1);
-        await expect(await getSourcesNames(1)).toContain("xyz");
+    test("should add 'qwe' as a source", async () => {
+        expect.assertions(1);
+        await addSource("qwe", "https://www.example.pl/", 1);
+        await expect(await getSourcesNames(1)).toContain("qwe");
     });
 });

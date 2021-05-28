@@ -11,9 +11,9 @@ export const closeDatabaseConnection = async () => {
     await mongoose.connection.close();
 };
 
-export const createExampleUser = async () => {
+export const createExampleUser = async (email) => {
     const req = {
-        body: { email: "example@gmail.com", password: "passwd" },
+        body: { email: email, password: "passwd" },
     };
     const res = {
         status(status) {
@@ -24,6 +24,6 @@ export const createExampleUser = async () => {
     await signup(req, res);
 };
 
-export const deleteExampleUser = async () => {
-    await deleteUser("example@gmail.com");
+export const deleteExampleUser = async (email) => {
+    await deleteUser(email);
 };

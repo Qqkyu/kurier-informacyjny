@@ -1,4 +1,4 @@
-import { signup } from "../../../resources/auth.js";
+import { signup } from "../../../resources/auth/auth.js";
 import {
     connectDatabase,
     closeDatabaseConnection,
@@ -8,26 +8,25 @@ import {
 describe("createUser", () => {
     beforeAll(async () => {
         await connectDatabase();
+        await deleteExampleUser("example12@gmail.com");
     });
 
     afterAll(async () => {
-        await deleteExampleUser();
+        await deleteExampleUser("example12@gmail.com");
         await closeDatabaseConnection();
     });
 
-    test('should create "example@gmail.com" account', async () => {
-        expect.assertions(2);
+    test('should create "example12@gmail.com" account', async () => {
+        expect.assertions(1);
         const req = {
-            body: { email: "example@gmail.com", password: "passwd" },
+            body: { email: "example12@gmail.com", password: "passwd" },
         };
         const res = {
             status(status) {
                 expect(status).toBe(200);
                 return this;
             },
-            send(result) {
-                expect(result.hashedPassword).toEqual(expect.anything());
-            },
+            send(result) {},
         };
         await signup(req, res);
     });
