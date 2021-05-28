@@ -16,15 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("public"));
 
-app.get("/sources", sourceRouter); // {}
+app.use("/sources", sourceRouter); // {}
 app.post("/signup", signup); // {body: {"email": <email_address>, "password": <password>}}
 app.post("/login", login); // {body: {"email": <email_address>, "password": <password>}}
 app.delete("/logout", logout); // {body: {"token": <refreshToken>}}
 app.get("/token", getNewToken); // {body: {"token": <refreshToken>}}
 app.get("/articles", getArticles); // {body: {"category_id": <0, 1 or 2>}}
-
-//app.use(verifyToken); // verifyToken function is used before giving access to user's data
-app.use("/user", verifyToken, userRouter);
+app.use("/user", verifyToken, userRouter); // verifyToken function is used before giving access to user's data
 
 dotenv.config();
 
