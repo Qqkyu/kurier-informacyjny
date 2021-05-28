@@ -13,6 +13,7 @@ import { setUserSession } from "../utils/Common";
 
 function RegisterPage() {
     const [redirect, setRedirect] = useState(false);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -28,12 +29,15 @@ function RegisterPage() {
                 .then(function (response) {
                     if (response.status === 200) {
                         /* Successful request - login user and set user data */
-                        axios.post("http://localhost:5000/login", payload);
-                        setUserSession(
-                            response.data.token,
-                            response.data.email
-                        );
-                        setRedirect(true);
+                        axios
+                            .post("http://localhost:5000/login", payload)
+                            .then((response) => {
+                                setUserSession(
+                                    response.data.token,
+                                    response.data.email
+                                );
+                                setRedirect(true);
+                            });
                     }
                 })
                 .catch(() => {

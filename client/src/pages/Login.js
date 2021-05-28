@@ -445,7 +445,7 @@ function LoginPage() {
                     </div>
                     <div className="flex relative z-30 flex-col justify-center pl-4 md:pr-12 xl:pr-12 md:pl-24">
                         <h3 className="text-4xl font-extrabold leading-tight text-white">
-                            Jednoczesne rzeglądanie informacji ze źródeł o
+                            Jednoczesne przeglądanie informacji ze źródeł o
                             różnych charakterach
                         </h3>
                         <p className="text-xl text-white leading-normal pt-3 xl:w-10/12">
