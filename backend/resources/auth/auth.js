@@ -42,6 +42,11 @@ export const getNewToken = async (req, res) => {
 };
 
 /**
+ Proxy Design Pattern 
+  verifyToken protects the unauthorized access to the user's data
+ **/
+
+/**
  * @param {Object} req - contains token that validates if the user is authorized to access the next function
  * @param {Object} res - object that the function response is sent to
  * @param {function} next - the function that the user wants to call
