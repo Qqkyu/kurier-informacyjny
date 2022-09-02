@@ -21,3 +21,8 @@ An app which fetches news from various sources using scripts stored in Azure. Fe
 - Tailwind CSS
 - MongoDB
 - Azure
+- Jest
+
+### Tests
+
+There are multiple extensive testing suites, some of them located in `main/backend/tests/__tests__/user` directory
